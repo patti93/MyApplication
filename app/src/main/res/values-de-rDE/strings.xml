@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WG4U</string>
+    <string name="user">Benutzer</string>
+    <string name="password">Kennwort</string>
+    <string name="confirm_password">Kennwort bestätigen</string>
+    <string name="sign_up_text">Oder registriere dich hier!</string>
+    <string name="first_name">Vorname</string>
+    <string name="name">Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="birthday">Geburtstag</string>
+    <string name="sign_up">Anmelden</string>
+    <string name="new_user_success">Du hast dich erfolgreich bei WG4U registriert!</string>
+    <string name="user_name">Benutzername</string>
+    <string name="login">Login</string>
+    <string name="short_password">Das gewählte Passwort ist zu kurz (mindestens 8 Zeichen)!</string>
+    <string name="no_password_match">Die Passwörter stimmen nicht überein!</string>
+    <string name="bday_format_error">Überprüfe das Geburtsdatum!</string>
+    <string name="empty_Fields">Bitte fülle alle Felder aus!</string>
+    <string name="user_exists">Benutzer bereits vorhanden</string>
+    <string name="mail_not_valid">Ungültige E-Mail Adresse</string>
+</resources>

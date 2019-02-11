@@ -1,13 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">WG4U</string>
-    <string name="user">Benutzer</string>
-    <string name="password">Kennwort</string>
-    <string name="confirm_password">Kennwort bestätigen</string>
-    <string name="sign_up_text">Oder registriere dich hier!</string>
-    <string name="first_name">Vorname</string>
-    <string name="name">Name</string>
-    <string name="e_mail">E-mail</string>
-    <string name="birthday">Geburtstag</string>
-    <string name="sign_up">Anmelden</string>
-    <string name="new_user_success">Du hast dich erfolgreich bei WG4U registriert!</string>
+    <string name="user">User</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up_text">or sign up here!</string>
+    <string name="first_name">Surname</string>
+    <string name="name">Lastname</string>
+    <string name="e_mail">e-mail</string>
+    <string name="birthday">Birthday</string>
+    <string name="sign_up">sign up!</string>
+    <string name="new_user_success">You successfully singes up for WG4U!</string>
+    <string name="user_name">User</string>
+    <string name="login">Login</string>
+    <string name="short_password">Choosen password is too short (min. 8 characters)!</string>
+    <string name="no_password_match">The passwords dont match!</string>
+    <string name="bday_format_error">Check the birthday!</string>
+    <string name="empty_Fields">Please fill in each field!</string>
+    <string name="user_exists">User already exists</string>
+    <string name="mail_not_valid">Invalid mail adress</string>
 </resources>

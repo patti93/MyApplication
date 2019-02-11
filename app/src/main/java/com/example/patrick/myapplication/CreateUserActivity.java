@@ -4,10 +4,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import java.util.regex.*;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class CreateUserActivity extends AppCompatActivity {
+
+
 
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
@@ -30,6 +34,7 @@ public class CreateUserActivity extends AppCompatActivity {
         String password2 = inputPassword2.getText().toString();
 
 
+
         if(isEmpty(inputBday) || isEmpty(inputFirstName) || isEmpty(inputMail) || isEmpty(inputName) || isEmpty(inputPassword) || isEmpty(inputPassword2)){
             return 4;
         }
@@ -37,8 +42,12 @@ public class CreateUserActivity extends AppCompatActivity {
 
         if(password.length() < 8) return 3;
 
+        Pattern email_pattern = Pattern.compile("[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-]+");
+
+        if(!email_pattern.matcher("mail").matches()) return 2;
 
         return 0;
+
 
 
 
@@ -50,11 +59,12 @@ public class CreateUserActivity extends AppCompatActivity {
         int check = safeUser();
 
         if(check == 0) successRedirect(view);
-        else if(check == 1)Toast.makeText(CreateUserActivity.this,"Passwords do not match", Toast.LENGTH_SHORT).show();
-        else if(check == 2)Toast.makeText(CreateUserActivity.this,"not a valid mail adress", Toast.LENGTH_SHORT).show();
-        else if(check == 3)Toast.makeText(CreateUserActivity.this,"Password is too short (min. 8 characters)", Toast.LENGTH_SHORT).show();
-        else if(check == 4)Toast.makeText(CreateUserActivity.this,"please fill in every field", Toast.LENGTH_SHORT).show();
-        else Toast.makeText(CreateUserActivity.this,"User already exists", Toast.LENGTH_SHORT).show();
+        else if(check == 1)Toast.makeText(CreateUserActivity.this,R.string.no_password_match, Toast.LENGTH_SHORT).show();
+        else if(check == 2)Toast.makeText(CreateUserActivity.this,R.string.mail_not_valid, Toast.LENGTH_SHORT).show();
+        else if(check == 3)Toast.makeText(CreateUserActivity.this,R.string.short_password, Toast.LENGTH_SHORT).show();
+        else if(check == 4)Toast.makeText(CreateUserActivity.this,R.string.empty_Fields, Toast.LENGTH_SHORT).show();
+        else if(check == 5)Toast.makeText(CreateUserActivity.this,R.string.bday_format_error, Toast.LENGTH_SHORT).show();
+        else Toast.makeText(CreateUserActivity.this,R.string.user_exists, Toast.LENGTH_SHORT).show();
 
     }
 
