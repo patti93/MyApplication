@@ -10,7 +10,7 @@
     <string name="e_mail">e-mail</string>
     <string name="birthday">Birthday</string>
     <string name="sign_up">sign up!</string>
-    <string name="new_user_success">You successfully singes up for WG4U!</string>
+    <string name="new_user_success">You successfully singed up for WG4U!</string>
     <string name="user_name">User</string>
     <string name="login">Login</string>
     <string name="short_password">Choosen password is too short (min. 8 characters)!</string>
