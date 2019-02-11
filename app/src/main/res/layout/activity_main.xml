@@ -62,7 +62,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:onClick="signUpRedirect"
-        android:text="@string/textview"
+        android:text="@string/sign_up_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">WG4U</string>
-    <string name="user">User</string>
-    <string name="password">Password</string>
-    <string name="textview">Or sing up here!</string>
+    <string name="user">Benutzer</string>
+    <string name="password">Kennwort</string>
+    <string name="confirm_password">Kennwort bestätigen</string>
+    <string name="sign_up_text">Oder registriere dich hier!</string>
+    <string name="first_name">Vorname</string>
+    <string name="name">Name</string>
+    <string name="e_mail">E-mail</string>
+    <string name="birthday">Geburtstag</string>
+    <string name="sign_up">Anmelden</string>
+    <string name="new_user_success">Du hast dich erfolgreich bei WG4U registriert!</string>
 </resources>
