@@ -13,10 +13,12 @@
     <string name="new_user_success">You successfully singed up for WG4U!</string>
     <string name="user_name">User</string>
     <string name="login">Login</string>
-    <string name="short_password">Choosen password is too short (min. 8 characters)!</string>
+    <string name="short_password">Chosen password is too short (min. 8 characters)!</string>
     <string name="no_password_match">The passwords dont match!</string>
     <string name="bday_format_error">Check the birthday!</string>
     <string name="empty_Fields">Please fill in each field!</string>
     <string name="user_exists">User already exists</string>
-    <string name="mail_not_valid">Invalid mail adress</string>
+    <string name="mail_not_valid">Invalid mail address</string>
+    <string name="found_wg">Found new WG</string>
+    <string name="join_wg">Join existing WG</string>
 </resources>

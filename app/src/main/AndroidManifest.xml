@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateUserSuccess"></activity>
+        <activity android:name=".CreateUserSuccess" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +19,9 @@
         </activity>
         <activity android:name=".CreateUserActivity" />
         <activity android:name=".MainMenuActivity" />
+        <activity android:name=".NoWGActivity" />
+        <activity android:name=".FoundWGActivity" />
+        <activity android:name=".SearchWGActivity" />
     </application>
 
 </manifest>
