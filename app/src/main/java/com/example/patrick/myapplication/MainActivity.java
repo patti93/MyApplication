@@ -1,18 +1,59 @@
 package com.example.patrick.myapplication;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.strictmode.SqliteObjectLeakedViolation;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
+    private WG4U_DataSource dataSource;
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        this.getDelegate().onDestroy();
+    }
     public boolean checkuser(String user, String password){
 
-        // TBD: check for real users
-        return user.equals("patrick") && password.equals("12345");
+
+        dataSource = new WG4U_DataSource(this);
+
+        dataSource.open();
+
+        List<Resident> residentList = new ArrayList<>();
+
+        residentList = dataSource.getResidentsSearch("email = " + "'" + user + "'");
+
+        if(residentList != null) {
+
+            if (residentList.get(0).getPassword().equals(password)) {
+                dataSource.close();
+                return true;
+            }
+        }
+
+        dataSource.close();
+        return false;
 
     }
 
@@ -25,10 +66,14 @@ public class MainActivity extends AppCompatActivity {
         String user = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
-        if(checkuser(user, password)) {
+        if(user != null && password != null) {
+
+            if (checkuser(user, password)) {
 
             Intent intent = new Intent(this, MainMenuActivity.class);
             startActivity(intent);
+            }
+
         }
         else Toast.makeText(MainActivity.this, "Wrong user or password!",Toast.LENGTH_LONG).show();
     }
@@ -39,13 +84,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
 }
