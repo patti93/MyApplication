@@ -25,7 +25,8 @@
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintVertical_bias="0.068"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextName"
@@ -39,7 +40,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextFirstName"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextMail"
@@ -53,7 +55,8 @@
         android:inputType="textWebEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -67,7 +70,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMail" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextMail"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextConfirmPassword"
@@ -81,7 +85,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/editTextBday"
@@ -95,7 +100,8 @@
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextConfirmPassword"
+        tools:ignore="Autofill"/>
 
     <Button
         android:id="@+id/SignupButton"

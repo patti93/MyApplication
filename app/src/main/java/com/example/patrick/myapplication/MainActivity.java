@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (checkuser(user, password)) {
 
-            Intent intent = new Intent(this, MainMenuActivity.class);
+            Intent intent = new Intent(this, NoWGActivity.class);
             startActivity(intent);
             }
 

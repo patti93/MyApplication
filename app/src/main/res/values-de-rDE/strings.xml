@@ -21,4 +21,18 @@
     <string name="mail_not_valid">Ungültige E-Mail Adresse</string>
     <string name="found_wg">Gründe eine neue WG</string>
     <string name="join_wg">Trete einer WG bei</string>
+    <string name="next">Weiter</string>
+    <string name="wg_founding">WG Gründung</string>
+    <string name="wg_name">WG Name</string>
+    <string name="zip_code">PLZ</string>
+    <string name="country">Land</string>
+    <string name="street">Straße</string>
+    <string name="description">Beschreibung</string>
+    <string name="search_your_wg">Suche hier nach deiner WG</string>
+    <string name="wg_search">WG Suche</string>
+    <string name="placeholder_wg_name">Platzhalter WG Name</string>
+    <string name="todo_list">ToDo Liste</string>
+    <string name="shopping_list">Einkaufszettel</string>
+    <string name="cleaning_plan">Putzplan</string>
+    <string name="journal">Pinnwand</string>
 </resources>
