@@ -28,4 +28,6 @@
     <string name="country">Land</string>
     <string name="street">Straße</string>
     <string name="description">Beschreibung</string>
+    <string name="search_your_wg">Suche hier nach deiner WG</string>
+    <string name="wg_search">WG Suche</string>
 </resources>
