@@ -1,7 +1,9 @@
 package com.example.patrick.myapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 public class CreateUserSuccess extends AppCompatActivity {
 
@@ -11,6 +13,9 @@ public class CreateUserSuccess extends AppCompatActivity {
         setContentView(R.layout.create_user_success);
     }
 
-
+    public void next_button(View view){
+        Intent intent = new Intent(this,NoWGActivity.class);
+        startActivity(intent);
+    }
 
 }

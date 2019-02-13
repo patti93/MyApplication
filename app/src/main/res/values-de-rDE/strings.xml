@@ -21,4 +21,5 @@
     <string name="mail_not_valid">Ungültige E-Mail Adresse</string>
     <string name="found_wg">Gründe eine neue WG</string>
     <string name="join_wg">Trete einer WG bei</string>
+    <string name="next">Weiter</string>
 </resources>

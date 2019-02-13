@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(checkuser(user, password)) {
 
-            Intent intent = new Intent(this, MainMenuActivity.class);
+            Intent intent = new Intent(this, NoWGActivity.class);
             startActivity(intent);
         }
         else Toast.makeText(MainActivity.this, "Wrong user or password!",Toast.LENGTH_LONG).show();
