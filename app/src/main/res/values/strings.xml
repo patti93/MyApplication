@@ -22,4 +22,10 @@
     <string name="found_wg">Found new WG</string>
     <string name="join_wg">Join existing WG</string>
     <string name="next">Next</string>
+    <string name="wg_founding">WG Founding</string>
+    <string name="wg_name">WG Name</string>
+    <string name="zip_code">ZIP Code</string>
+    <string name="country">Country</string>
+    <string name="street">Street</string>
+    <string name="description">Description</string>
 </resources>

@@ -22,4 +22,10 @@
     <string name="found_wg">Gründe eine neue WG</string>
     <string name="join_wg">Trete einer WG bei</string>
     <string name="next">Weiter</string>
+    <string name="wg_founding">WG Gründung</string>
+    <string name="wg_name">WG Name</string>
+    <string name="zip_code">PLZ</string>
+    <string name="country">Land</string>
+    <string name="street">Straße</string>
+    <string name="description">Beschreibung</string>
 </resources>
