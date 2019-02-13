@@ -44,7 +44,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        android:importantForAutofill="no" />
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/input_zip_code"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_wg_name"
-        android:importantForAutofill="no" />
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/input_country"
@@ -74,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_zip_code"
-        android:importantForAutofill="no" />
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/input_street"
@@ -89,7 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_country"
-        android:importantForAutofill="no" />
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/input_description"
@@ -104,6 +104,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_street"
-        android:importantForAutofill="no" />
+        tools:ignore="Autofill" />
 
 </android.support.constraint.ConstraintLayout>
