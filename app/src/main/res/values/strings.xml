@@ -30,4 +30,9 @@
     <string name="description">Description</string>
     <string name="search_your_wg">Search here for your WG</string>
     <string name="wg_search">WG search</string>
+    <string name="placeholder_wg_name">Placeholder WG name</string>
+    <string name="todo_list">ToDo list</string>
+    <string name="shopping_list">Shopping list</string>
+    <string name="cleaning_plan">Cleaning plan</string>
+    <string name="journal">Journal</string>
 </resources>
