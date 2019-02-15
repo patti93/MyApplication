@@ -10,9 +10,9 @@ public class Resident {
     private String password;
 
 
-    public Resident (String firstName, String lastName, String birthday, String email, String password){
+    public Resident (long id,String firstName, String lastName, String birthday, String email, String password){
 
-
+        this.id = id;
         this.birthday = birthday;
         this.email = email;
         this.firstName = firstName;

@@ -15,7 +15,8 @@ public class WG4U_DataSource {
     private SQLiteDatabase database;
     private WG4U_DB_Helper dbHelper;
 
-    private String [] columns = {"id","firstName","lastName", "bday","email", "password"};
+    private String [] residentColumns = {"id","firstName","lastName", "bday","email", "password"};
+    private String [] wgColumns = {"id","name","street","hnr","password"};
 
 
     public WG4U_DataSource(Context context) {
@@ -42,9 +43,10 @@ public class WG4U_DataSource {
         values.put("email",email);
         values.put("password",password);
 
+
         long insertID = database.insert("residents",null,values);
 
-        Cursor cursor = database.query("residents",columns,"id = " + insertID, null,null,null,null);
+        Cursor cursor = database.query("residents",residentColumns,"id = " + insertID, null,null,null,null);
 
         cursor.moveToFirst();
         Resident resident = cursorToResident(cursor);
@@ -52,12 +54,15 @@ public class WG4U_DataSource {
         return resident;
     }
 
+
+    //Resident operations
+
     //returns a list of residents where the searchString applies
     public List<Resident> getResidentsSearch(String searchString){
 
         List<Resident> residentList = new ArrayList<>();
 
-        Cursor cursor = database.query("residents",columns,searchString,null,null,null, null);
+        Cursor cursor = database.query("residents",residentColumns,searchString,null,null,null, null);
 
         if(cursor.getCount() == 0) return null;
 
@@ -78,7 +83,6 @@ public class WG4U_DataSource {
 
     }
 
-
     public Resident cursorToResident(Cursor cursor){
 
         long id = cursor.getLong(cursor.getColumnIndex("id"));
@@ -89,7 +93,7 @@ public class WG4U_DataSource {
         String password = cursor.getString(cursor.getColumnIndex("password"));
 
 
-        Resident resident = new Resident(firstname,lastname,bday,email,password);
+        Resident resident = new Resident(id,firstname,lastname,bday,email,password);
 
         return resident;
     }
@@ -98,7 +102,7 @@ public class WG4U_DataSource {
 
         List<Resident> residentList = new ArrayList<>();
 
-        Cursor cursor = database.query("residents",columns,null,null,null,null, null);
+        Cursor cursor = database.query("residents",residentColumns,null,null,null,null, null);
 
         cursor.moveToFirst();
         Resident resident;
@@ -117,8 +121,85 @@ public class WG4U_DataSource {
     }
 
 
+    //WG Operations
 
 
+    public Wg insertWg(String name, String street, String hnr, String password){
+
+        ContentValues values = new ContentValues();
+
+        values.put("name",name);
+        values.put("street",street);
+        values.put("hnr",hnr);
+        values.put("password",password);
+
+        long insertID = database.insert("wgs",null,values);
+
+        Cursor cursor = database.query("wgs",wgColumns,"id = " + insertID, null,null,null,null);
+
+        cursor.moveToFirst();
+
+        return cursorToWg(cursor);
+    }
+
+    public Wg cursorToWg(Cursor cursor){
+
+        long id = cursor.getLong(cursor.getColumnIndex("id"));
+        String name = cursor.getString(cursor.getColumnIndex("name"));
+        String street = cursor.getString(cursor.getColumnIndex("street"));
+        String hnr = cursor.getString(cursor.getColumnIndex("hnr"));
+        String password = cursor.getString(cursor.getColumnIndex("password"));
+
+        Wg wg = new Wg(id,street,hnr,name,password);
+
+        return wg;
+    }
+
+    public List<Wg> getAllWGs(){
+
+        List<Wg> wgList = new ArrayList<>();
+
+        Cursor cursor = database.query("wgs",wgColumns,null,null,null,null, null);
+
+        cursor.moveToFirst();
+        Wg wg;
+
+        while (!cursor.isAfterLast()){
+
+            wg = cursorToWg(cursor);
+            wgList.add(wg);
+            Log.d(LOG_TAG, "ID: " + wg.getId() + ", Inhalt: " + wg.toString());
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return wgList;
+
+    }
+
+    public List<Wg> getWGsSearch(String searchString){
+
+        List<Wg> wgList = new ArrayList<>();
+
+        Cursor cursor = database.query("wgs",wgColumns,searchString,null,null,null, null);
+
+        cursor.moveToFirst();
+        Wg wg;
+
+        if(cursor.getCount() == 0) return null;
+
+        while (!cursor.isAfterLast()){
+
+            wg = cursorToWg(cursor);
+            wgList.add(wg);
+            Log.d(LOG_TAG, "ID: " + wg.getId() + ", Inhalt: " + wg.toString());
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return wgList;
+
+    }
 
 
 }

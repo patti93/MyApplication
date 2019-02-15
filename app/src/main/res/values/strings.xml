@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="wrong_login">Check e-mail and password</string>
     <string name="app_name">WG4U</string>
     <string name="user">User</string>
     <string name="password">Password</string>

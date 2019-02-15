@@ -35,4 +35,5 @@
     <string name="shopping_list">Einkaufszettel</string>
     <string name="cleaning_plan">Putzplan</string>
     <string name="journal">Pinnwand</string>
+    <string name="wrong_login">Überprüfe E-Mail und Passwort</string>
 </resources>
