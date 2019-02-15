@@ -16,7 +16,7 @@ public class WG4U_DataSource {
     private WG4U_DB_Helper dbHelper;
 
     private String [] residentColumns = {"id","firstName","lastName", "bday","email", "password"};
-    private String [] wgColumns = {"id","name","street","hnr","password"};
+    private String [] wgColumns = {"id","name","street","hnr","zip","town","country","description","password"};
 
 
     public WG4U_DataSource(Context context) {
@@ -124,13 +124,17 @@ public class WG4U_DataSource {
     //WG Operations
 
 
-    public Wg insertWg(String name, String street, String hnr, String password){
+    public Wg insertWg(String name, String street, String hnr,String zip,String town, String country, String description, String password){
 
         ContentValues values = new ContentValues();
 
         values.put("name",name);
         values.put("street",street);
         values.put("hnr",hnr);
+        values.put("zip",zip);
+        values.put("town",town);
+        values.put("country",country);
+        values.put("description",description);
         values.put("password",password);
 
         long insertID = database.insert("wgs",null,values);
@@ -149,8 +153,12 @@ public class WG4U_DataSource {
         String street = cursor.getString(cursor.getColumnIndex("street"));
         String hnr = cursor.getString(cursor.getColumnIndex("hnr"));
         String password = cursor.getString(cursor.getColumnIndex("password"));
+        String zip = cursor.getString(cursor.getColumnIndex("zip"));
+        String town = cursor.getString(cursor.getColumnIndex("town"));
+        String description = cursor.getString(cursor.getColumnIndex("description"));
+        String country = cursor.getString(cursor.getColumnIndex("country"));
 
-        Wg wg = new Wg(id,street,hnr,name,password);
+        Wg wg = new Wg(id,name,street,hnr,zip,country,town,description,password);
 
         return wg;
     }

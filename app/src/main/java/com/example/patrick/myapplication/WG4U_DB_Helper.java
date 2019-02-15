@@ -10,7 +10,7 @@ public class WG4U_DB_Helper extends SQLiteOpenHelper {
     private static final String LOG_TAG = WG4U_DB_Helper.class.getSimpleName();
     public static final int DB_VERSION = 1;
     public static final String SQL_CREATE_TABLE_USERS = "CREATE TABLE residents (id INTEGER PRIMARY KEY AUTOINCREMENT,firstName VCHAR, lastName VCHAR, bday VCHAR, email VCHAR, password VCHAR)";
-    public static final String SQL_CREATE_TABLE_WGS = "CREATE TABLE wgs (id INTEGER PRIMARY KEY AUTOINCREMENT, name VCHAR, street VCHAR, hnr VCHAR, password VCHAR)";
+    public static final String SQL_CREATE_TABLE_WGS = "CREATE TABLE wgs (id INTEGER PRIMARY KEY AUTOINCREMENT, name VCHAR, street VCHAR, hnr VCHAR,zip VCHAR,town VCHAR, country VHCHAR, description TEXT, password VCHAR)";
     public static  final String DB_NAME = "wg4u.db";
 
 

@@ -36,4 +36,8 @@
     <string name="cleaning_plan">Putzplan</string>
     <string name="journal">Pinnwand</string>
     <string name="wrong_login">Überprüfe E-Mail und Passwort</string>
+    <string name="hnr">Hausnummer</string>
+    <string name="describe_wg">Sage uns etwas zu deiner WG!</string>
+    <string name="town">Stadt</string>
+    <string name="wg_password">Setze ein WG-Passwort</string>
 </resources>

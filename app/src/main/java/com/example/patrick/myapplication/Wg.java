@@ -8,14 +8,54 @@ public class Wg {
     private String  hnr;
     private String  name;
     private String password;
+    private String zipCode;
+    private String country;
+    private String town;
+    private String description;
 
 
-    public Wg(long id, String street, String hnr, String name, String password) {
+    public Wg(long id,String name, String street, String hnr, String zipCode, String country, String town, String description, String password) {
         this.id = id;
         this.street = street;
         this.hnr = hnr;
         this.name = name;
         this.password = password;
+        this.zipCode = zipCode;
+        this.country = country;
+        this.town = town;
+        this.description = description;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getTown() {
+        return town;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getPassword() {

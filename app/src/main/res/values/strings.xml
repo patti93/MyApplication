@@ -28,12 +28,17 @@
     <string name="zip_code">ZIP Code</string>
     <string name="country">Country</string>
     <string name="street">Street</string>
+    <string name="hnr">Number</string>
+    <string name="town">Town</string>
     <string name="description">Description</string>
     <string name="search_your_wg">Search here for your WG</string>
     <string name="wg_search">WG search</string>
+    <string name="wg_password">Set a WG-password</string>
     <string name="placeholder_wg_name">Placeholder WG name</string>
     <string name="todo_list">ToDo list</string>
     <string name="shopping_list">Shopping list</string>
     <string name="cleaning_plan">Cleaning plan</string>
     <string name="journal">Journal</string>
+    <string name="describe_wg">Tell us something about your WG!</string>
+
 </resources>
