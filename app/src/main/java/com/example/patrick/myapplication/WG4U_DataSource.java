@@ -17,7 +17,7 @@ public class WG4U_DataSource {
 
     private String [] residentColumns = {"id","firstName","lastName", "bday","email", "password"};
     private String [] wgColumns = {"id","name","street","hnr","zip","town","country","description","password"};
-
+    private String [] lives_inColumns = {"wg_id","resident_id"};
 
     public WG4U_DataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -122,8 +122,6 @@ public class WG4U_DataSource {
 
 
     //WG Operations
-
-
     public Wg insertWg(String name, String street, String hnr,String zip,String town, String country, String description, String password){
 
         ContentValues values = new ContentValues();
@@ -208,6 +206,43 @@ public class WG4U_DataSource {
         return wgList;
 
     }
+    //lives in
+
+    public long associateWgToResident(Wg wg, Resident resident){
+
+
+        ContentValues values = new ContentValues();
+
+        values.put("wg_id",wg.getId());
+        values.put("resident_id",resident.getId());
+
+        return database.insert("lives_in",null,values);
+
+    }
+
+    public String findResidentsWg(Resident resident){
+
+        List<Wg> wgList = new ArrayList<>();
+        Cursor cursor = database.query("lives_in",lives_inColumns,"id = " + resident.getId(),null,null,null,null,null);
+
+        cursor.moveToFirst();
+
+        long wg_id = cursor.getLong(cursor.getColumnIndex("wg_id"));
+
+
+        if (getWGsSearch("id = " +wg_id) != null){
+            wgList = getWGsSearch("id = " +wg_id);
+            return wgList.get(0).getName();
+        }
+
+        return null;
+    }
+
+
+
+
+
+
 
 
 }

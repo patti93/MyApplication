@@ -11,6 +11,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sql.DataSource;
+
 public class MainActivity extends AppCompatActivity {
 
     private WG4U_DataSource dataSource;
@@ -61,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
         EditText inputUser = findViewById(R.id.editTextUser);
         EditText inputPassword = findViewById(R.id.editTextPassword);
 
-        String user = inputUser.getText().toString();
+        String email = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
-        if (checkuser(user, password)) {
+        if (checkuser(email, password)) {
 
             Intent intent = new Intent(this, NoWGActivity.class);
             startActivity(intent);
@@ -76,6 +78,18 @@ public class MainActivity extends AppCompatActivity {
     public void signUpRedirect(View view){
         Intent intent = new Intent(this,CreateUserActivity.class);
         startActivity(intent);
+    }
+    public boolean hasWG(String email){
+
+        dataSource = new WG4U_DataSource(this);
+        dataSource.open();
+
+        List<Resident> residentList = new ArrayList<>();
+
+        residentList = dataSource.getResidentsSearch("email = " + "'" + email + "'");
+
+
+        return false;
     }
 
 }

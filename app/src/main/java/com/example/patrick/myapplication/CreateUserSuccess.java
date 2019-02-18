@@ -14,7 +14,7 @@ public class CreateUserSuccess extends AppCompatActivity {
     }
 
     public void next_button(View view){
-        Intent intent = new Intent(this,NoWGActivity.class);
+        Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
     }
 

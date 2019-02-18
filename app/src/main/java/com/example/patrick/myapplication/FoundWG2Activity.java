@@ -3,6 +3,7 @@ package com.example.patrick.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -11,6 +12,7 @@ public class FoundWG2Activity extends AppCompatActivity {
 
     String[] adress;
     String[] wgData;
+    private static final String LOG_TAG = FoundWG2Activity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,8 @@ public class FoundWG2Activity extends AppCompatActivity {
 
     public void redirectMain(View view){
 
+
+        ActiveResident resident = new ActiveResident(this);
         WG4U_DataSource dataSource = new WG4U_DataSource(this);
         dataSource.open();
         wgData = getWgDetails();
@@ -33,7 +37,9 @@ public class FoundWG2Activity extends AppCompatActivity {
         if(checkInput()){
             //check if there is already a wg with that name
             if (dataSource.getWGsSearch("name = '" + wgData[0] + "'") == null) {
-                dataSource.insertWg(wgData[0], adress[0], adress[1], adress[2], adress[3], adress[4], wgData[2], wgData[1]);
+                Wg wg = dataSource.insertWg(wgData[0], adress[0], adress[1], adress[2], adress[3], adress[4], wgData[2], wgData[1]);
+                dataSource.associateWgToResident(wg,resident.getActiveResident());
+                Log.d(LOG_TAG,"Bewohner:" + resident.getActiveResident().getEmail() + " ist in: " + wg.getName() + " eingezogen!");
                 Intent intent = new Intent(this,MainMenuActivity.class);
                 //kills all previous activities
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
