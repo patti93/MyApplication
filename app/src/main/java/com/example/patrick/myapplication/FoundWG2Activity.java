@@ -58,7 +58,7 @@ public class FoundWG2Activity extends AppCompatActivity {
         String[] wgInput = new String[3];
 
         EditText inputName = findViewById(R.id.input_wg_name);
-        EditText inputWgPassword = findViewById(R.id.input_wg_password);
+        EditText inputWgPassword = findViewById(R.id.input_wg_Login);
         EditText inputDescription = findViewById(R.id.input_description);
 
         wgInput[0] = inputName.getText().toString();
@@ -71,7 +71,7 @@ public class FoundWG2Activity extends AppCompatActivity {
     private boolean checkInput(){
 
         EditText inputName = findViewById(R.id.input_wg_name);
-        EditText inputWgPassword = findViewById(R.id.input_wg_password);
+        EditText inputWgPassword = findViewById(R.id.input_wg_Login);
         EditText inputWgPassword2 = findViewById(R.id.input_wg_password2);
         EditText inputDescription = findViewById(R.id.input_description);
 

@@ -62,15 +62,25 @@ public class MainActivity extends AppCompatActivity {
 
         EditText inputUser = findViewById(R.id.editTextUser);
         EditText inputPassword = findViewById(R.id.editTextPassword);
-
+        ActiveResident activeResident = new ActiveResident(this);
         String email = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
         if (checkuser(email, password)) {
 
-            Intent intent = new Intent(this, NoWGActivity.class);
-            startActivity(intent);
-            finish();
+            dataSource = new WG4U_DataSource(this);
+            dataSource.open();
+            if(dataSource.findResidentsWg(activeResident.getActiveResident()) == null){
+                Intent intent = new Intent(this, NoWGActivity.class);
+                startActivity(intent);
+                dataSource.close();
+                finish();
+            }
+            else {
+                Intent intent = new Intent(this, MainMenuActivity.class);
+                startActivity(intent);
+            }
+
         }
         else Toast.makeText(MainActivity.this, R.string.wrong_login,Toast.LENGTH_LONG).show();
     }

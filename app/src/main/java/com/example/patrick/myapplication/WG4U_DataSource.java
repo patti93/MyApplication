@@ -223,9 +223,11 @@ public class WG4U_DataSource {
     public String findResidentsWg(Resident resident){
 
         List<Wg> wgList = new ArrayList<>();
-        Cursor cursor = database.query("lives_in",lives_inColumns,"id = " + resident.getId(),null,null,null,null,null);
+        Cursor cursor = database.query("lives_in",lives_inColumns,"resident_id = " + resident.getId(),null,null,null,null,null);
 
         cursor.moveToFirst();
+
+        if(cursor.getCount() == 0) return null;
 
         long wg_id = cursor.getLong(cursor.getColumnIndex("wg_id"));
 

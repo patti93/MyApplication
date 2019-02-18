@@ -41,5 +41,9 @@
     <string name="journal">Journal</string>
     <string name="describe_wg">Tell us something about your WG!</string>
     <string name="wg_exists">This name is already taken, choose a different one!</string>
+    <string name="search">Search</string>
+    <string name="no_result">No result</string>
+    <string name="join">Join</string>
+    <string name="check_password">Check WG-password</string>
 
 </resources>
