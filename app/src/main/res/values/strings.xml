@@ -40,5 +40,6 @@
     <string name="cleaning_plan">Cleaning plan</string>
     <string name="journal">Journal</string>
     <string name="describe_wg">Tell us something about your WG!</string>
+    <string name="wg_exists">This name is already taken, choose a different one!</string>
 
 </resources>

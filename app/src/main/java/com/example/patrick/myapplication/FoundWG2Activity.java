@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class FoundWG2Activity extends AppCompatActivity {
 
@@ -18,13 +19,31 @@ public class FoundWG2Activity extends AppCompatActivity {
         adress = intent.getStringArrayExtra("wg_data");
     }
 
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() <= 0;
+    }
+
     public void redirectMain(View view){
-        Intent intent = new Intent(this,MainMenuActivity.class);
-        startActivity(intent);
+
         WG4U_DataSource dataSource = new WG4U_DataSource(this);
         dataSource.open();
         wgData = getWgDetails();
-        dataSource.insertWg(wgData[0],adress[0],adress[1],adress[2],adress[3],adress[4],wgData[2],wgData[1]);
+
+
+        if(checkInput()){
+            //check if there is already a wg with that name
+            if (dataSource.getWGsSearch("name = '" + wgData[0] + "'") == null) {
+                dataSource.insertWg(wgData[0], adress[0], adress[1], adress[2], adress[3], adress[4], wgData[2], wgData[1]);
+                Intent intent = new Intent(this,MainMenuActivity.class);
+                //kills all previous activities
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+            } else {
+                Toast.makeText(FoundWG2Activity.this, R.string.wg_exists, Toast.LENGTH_SHORT).show();
+            }
+        }
+
         dataSource.getAllWGs();
         dataSource.close();
     }
@@ -34,7 +53,7 @@ public class FoundWG2Activity extends AppCompatActivity {
 
         EditText inputName = findViewById(R.id.input_wg_name);
         EditText inputWgPassword = findViewById(R.id.input_wg_password);
-        EditText inputDescription = findViewById(R.id.input_wg_password);
+        EditText inputDescription = findViewById(R.id.input_description);
 
         wgInput[0] = inputName.getText().toString();
         wgInput[1] = inputWgPassword.getText().toString();
@@ -42,5 +61,31 @@ public class FoundWG2Activity extends AppCompatActivity {
 
         return wgInput;
     }
+
+    private boolean checkInput(){
+
+        EditText inputName = findViewById(R.id.input_wg_name);
+        EditText inputWgPassword = findViewById(R.id.input_wg_password);
+        EditText inputWgPassword2 = findViewById(R.id.input_wg_password2);
+        EditText inputDescription = findViewById(R.id.input_description);
+
+        String password1 = inputWgPassword.getText().toString();
+        String password2 = inputWgPassword2.getText().toString();
+
+
+        if(isEmpty(inputName)||isEmpty(inputDescription)||isEmpty(inputWgPassword)||isEmpty(inputWgPassword2)){
+            Toast.makeText(FoundWG2Activity.this,R.string.empty_Fields,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        else if (!(password1.equals(password2))){
+            Toast.makeText(FoundWG2Activity.this,R.string.no_password_match,Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+
+    }
+
+
+
 
 }
