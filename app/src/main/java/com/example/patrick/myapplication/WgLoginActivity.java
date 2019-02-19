@@ -47,6 +47,7 @@ public class WgLoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this,MainMenuActivity.class);
             //kills all previous activities and direct to main menu
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("wgName",wgList.get(0).getName());
             startActivity(intent);
 
         }
