@@ -41,7 +41,7 @@ public class ActiveResident {
         editor.putLong(KEY_ID,resident.getId());
         editor.putString(KEY_FNAME,resident.getFirstName());
         editor.putString(KEY_LNAME,resident.getLastName());
-        editor.putString(KEY_BDAY,resident.getPassword());
+        editor.putString(KEY_BDAY,resident.getBirthday());
         editor.putString(KEY_EMAIL,resident.getEmail());
         editor.putString(KEY_PASSWORD,resident.getPassword());
 

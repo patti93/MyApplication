@@ -32,7 +32,7 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         TextView wgTextView = findViewById(R.id.wg_name);
         wgTextView.setText(wgName);
-        wgTextView.setTextSize(24);
+        wgTextView.setTextSize(32);
     }
 
     public void onClickUser(View view){

@@ -46,4 +46,5 @@
     <string name="join">Beitreten</string>
     <string name="check_password">Überprüfe das WG-Passwort</string>
     <string name="calender">Terminkalender</string>
+    <string name="user_details">Benutzerdetails</string>
 </resources>
