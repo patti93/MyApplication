@@ -45,15 +45,16 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/user" />
+                android:background="@drawable/user"
+                android:onClick="onClickUser" />
 
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="My Account"/>
+                android:text="@string/user"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -71,7 +72,8 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/group" />
+                android:background="@drawable/group"
+                android:onClick="onClickWG" />
 
 
             <TextView
@@ -97,15 +99,16 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/calendar" />
+                android:background="@drawable/calendar"
+                android:onClick="onClickCalender" />
 
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="Calender"/>
+                android:text="@string/calender"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -123,15 +126,16 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/shopping_cart" />
+                android:background="@drawable/shopping_cart"
+                android:onClick="onClickShoppingList" />
 
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="Shopping list"/>
+                android:text="@string/shopping_list"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -149,15 +153,16 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/list" />
+                android:background="@drawable/list"
+                android:onClick="onClickToDo" />
 
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="To-Do"/>
+                android:text="@string/todo_list"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
@@ -175,16 +180,16 @@
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
                 android:layout_weight="8"
-                android:background="@drawable/chat" />
+                android:background="@drawable/chat"
+                android:onClick="onClickJournal" />
 
 
             <TextView
-                android:textAlignment="center"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:text="Dashboard
-"/>
+                android:text="@string/journal"
+                android:textAlignment="center" />
 
         </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.example.patrick.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,4 +34,57 @@ public class MainMenuActivity extends AppCompatActivity {
         wgTextView.setText(wgName);
         wgTextView.setTextSize(24);
     }
+
+    public void onClickUser(View view){
+
+        Intent intent = new Intent(this,ShowUserActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickWG(View view){
+
+        Intent intent = new Intent(this,ShowWGActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickCalender(View view){
+
+        Intent intent = new Intent(this,ShowCalenderActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickToDo(View view){
+
+        Intent intent = new Intent(this,ShowToDoActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickJournal(View view){
+
+        Intent intent = new Intent(this,ShowJournalActivity.class);
+        startActivity(intent);
+
+    }
+    public void onClickShoppingList(View view){
+
+        Intent intent = new Intent(this,ShowShoppingListActivity.class);
+        startActivity(intent);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

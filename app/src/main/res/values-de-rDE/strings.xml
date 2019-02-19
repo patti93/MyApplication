@@ -45,4 +45,5 @@
     <string name="no_result">kein Ergebnis</string>
     <string name="join">Beitreten</string>
     <string name="check_password">Überprüfe das WG-Passwort</string>
+    <string name="calender">Terminkalender</string>
 </resources>
