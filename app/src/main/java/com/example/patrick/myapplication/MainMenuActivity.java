@@ -24,6 +24,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         wgName = dataSource.findResidentsWg(activeResident.getActiveResident()).getName();
 
+
         if(wgName.equals(null)){
             dataSource.close();
             Intent intent = new Intent(this,NoWGActivity.class);

@@ -66,7 +66,7 @@ public class WG4U_DataSource {
 
         Cursor cursor = database.query("residents",residentColumns,searchString,null,null,null, null);
 
-        if(cursor.getCount() == 0) return null;
+        //if(cursor.getCount() == 0) return null;
 
         cursor.moveToFirst();
         Resident resident;
@@ -244,20 +244,39 @@ public class WG4U_DataSource {
 
     public List<Resident> findWgResidents(Wg wg){
 
-        List<Resident> residentList = new ArrayList<>();
+        List<Resident> residentListTemp = new ArrayList<>();
+        List<Resident> residentListResult = new ArrayList<>();
+        List<Long> residentIDs = new ArrayList<>();
+        //returns a cursor containing all resident IDs for a certain WG
         Cursor cursor = database.query("lives_in",lives_inColumns,"wg_id = " + wg.getId(),null,null,null,null,null);
 
         cursor.moveToFirst();
 
         if(cursor.getCount() == 0) return null;
 
+        //create an ArrayList with all resident IDs
         while (!cursor.isAfterLast()){
-            residentList.add(cursorToResident(cursor));
+            residentIDs.add(cursor.getLong(cursor.getColumnIndex("resident_id")));
             cursor.moveToNext();
         }
+
+        //add one resident for each ID to the result
+        for(Long i: residentIDs){
+            residentListTemp = getResidentsSearch("id = " + i);
+            if(residentListTemp.size()>0)
+            residentListResult.add(residentListTemp.get(0));
+        }
+
         cursor.close();
 
-        return residentList;
+        Log.d(LOG_TAG,"Bewohner von WG" + wg.getName());
+        for(Resident resident: residentListResult){
+
+            Log.d(LOG_TAG,resident.toString());
+
+        }
+
+        return residentListResult;
 
     }
 
@@ -321,7 +340,6 @@ public class WG4U_DataSource {
         cursor.close();
 
         return appointmentList;
-
     }
 
 //has appointment operations
@@ -338,23 +356,42 @@ public class WG4U_DataSource {
     }
 
 
-    public List<Appointment> findWgAppointments(Wg wg){
+        public List<Appointment> getWgAppointments(Wg wg,String date){
 
-        List<Appointment> appointmentList = new ArrayList<>();
-        Cursor cursor = database.query("has_appointment",has_appointmentColumns,"wg_id = " + wg.getId(),null,null,null,null,null);
+        List<Appointment> appointmentListTemp = new ArrayList<>();
+        List<Appointment> appointmentListResult = new ArrayList<>();
+        List<Long> appointmenIDs = new ArrayList<>();
+        //returns a cursor containing all appointment IDs for a certain WG
+        Cursor cursor = database.query("has_appointment",has_appointmentColumns,"wg_id = " + wg.getId() ,null,null,null,null,null);
 
         cursor.moveToFirst();
 
         if(cursor.getCount() == 0) return null;
 
+        //create an ArrayList with all appointment IDs
         while (!cursor.isAfterLast()){
-
-            appointmentList.add(cursorToAppointment(cursor));
+            appointmenIDs.add(cursor.getLong(cursor.getColumnIndex("appointment_id")));
             cursor.moveToNext();
         }
+
+        //add one appointment for each ID with matching date to the result
+        for(Long i: appointmenIDs){
+            appointmentListTemp = getAppointmentsSearch("id = " + i + " AND date = '" + date + "'");
+            if(appointmentListTemp.size()>0)
+            appointmentListResult.add(appointmentListTemp.get(0));
+        }
+
         cursor.close();
 
-        return appointmentList;
+        Log.d(LOG_TAG,"Termine von WG" + wg.getName());
+        for(Appointment appointment: appointmentListResult){
+
+            Log.d(LOG_TAG,appointment.toString());
+
+        }
+
+        return appointmentListResult;
+
     }
 
 

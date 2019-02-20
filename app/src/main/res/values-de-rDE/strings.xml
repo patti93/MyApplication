@@ -47,9 +47,10 @@
     <string name="check_password">Überprüfe das WG-Passwort</string>
     <string name="calender">Terminkalender</string>
     <string name="user_details">Benutzerdetails</string>
-    <string name="create_appointment">Neuer Termin</string>
+    <string name="create_appointment">Neue Aufgabe</string>
     <string name="date">Datum (TT/MM/JJJJ)</string>
     <string name="appointment_description">Erstelle eine Notiz</string>
     <string name="safe">Speichern</string>
     <string name="check_date">Ungültiges Datum</string>
+    <string name="task_on">"Aufgaben am "</string>
 </resources>

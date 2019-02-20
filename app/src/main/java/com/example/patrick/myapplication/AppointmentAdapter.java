@@ -3,6 +3,7 @@ package com.example.patrick.myapplication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,18 @@ public class AppointmentAdapter extends ArrayAdapter {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_appointment, parent, false);
         }
 
-
         TextView appointmentName = convertView.findViewById(R.id.appointmentListViewItemName);
         appointmentName.setText(appointment.getName());
+
+        TextView appointmentDescription = convertView.findViewById(R.id.appointmentListViewItemDescription);
+        appointmentDescription.setText(appointment.getDescription());
+
+
+        if(position % 2 == 0){
+            int convertViewBackgroundColor = Color.argb(120,213,213,213);
+            convertView.setBackgroundColor(convertViewBackgroundColor);
+        }
+
 
         return convertView;
 

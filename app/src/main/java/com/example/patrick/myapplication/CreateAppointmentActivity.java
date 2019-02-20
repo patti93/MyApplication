@@ -31,6 +31,8 @@ public class CreateAppointmentActivity extends AppCompatActivity {
 
     public void onClickSafe(View view){
 
+
+
         inputAppointmentDate = findViewById(R.id.appointmentDateEditText);
         String date = inputAppointmentDate.getText().toString();
 
