@@ -367,8 +367,6 @@ public class WG4U_DataSource {
 
         cursor.moveToFirst();
 
-        if(cursor.getCount() == 0) return null;
-
         //create an ArrayList with all appointment IDs
         while (!cursor.isAfterLast()){
             appointmenIDs.add(cursor.getLong(cursor.getColumnIndex("appointment_id")));
