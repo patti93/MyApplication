@@ -57,7 +57,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         dataSource.open();
 
-        if(dataSource.getResidentsSearch("email = "+"'"+mail+"'").size() == 0) return 6;
+        if(dataSource.getResidentsSearch("email = "+"'"+mail+"'").size() != 0) return 6;
 
         dataSource.insertResident(firstName,name,bday,mail,password);
 
