@@ -22,7 +22,7 @@ public class MainMenuActivity extends AppCompatActivity {
         dataSource.open();
         activeResident = new ActiveResident(this);
 
-        wgName = dataSource.findResidentsWg(activeResident.getActiveResident());
+        wgName = dataSource.findResidentsWg(activeResident.getActiveResident()).getName();
 
         if(wgName.equals(null)){
             dataSource.close();

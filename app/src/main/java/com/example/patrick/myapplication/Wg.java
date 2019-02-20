@@ -99,8 +99,18 @@ public class Wg {
     }
 
 
-    public String toString(){
-        return Long.toString(id) + " | " +  name + " | " + street + " | " + hnr  ;
+    @Override
+    public String toString() {
+        return "Wg{" +
+                "id=" + id +
+                ", street='" + street + '\'' +
+                ", hnr='" + hnr + '\'' +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
+                ", town='" + town + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
-
 }

@@ -68,11 +68,15 @@ public class Resident {
         this.lastName = lastName;
     }
 
-    public String toString(){
-
-        return firstName + " | " + lastName + " | " + birthday + " | " + email + " | " + password;
-
-
+    @Override
+    public String toString() {
+        return "Resident{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
-
 }

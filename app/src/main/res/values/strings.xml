@@ -47,5 +47,10 @@
     <string name="check_password">Check WG-password</string>
     <string name="calender">Calender</string>
     <string name="user_details">User details</string>
+    <string name="create_appointment">New appointment</string>
+    <string name="date">Date (DD/MM/YYYY)</string>
+    <string name="appointment_description">Take a note</string>
+    <string name="safe">Safe</string>
+    <string name="check_date">Check date</string>
 
 </resources>

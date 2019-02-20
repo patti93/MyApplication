@@ -40,7 +40,7 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/name"
@@ -51,7 +51,7 @@
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="0dp"
-            android:layout_weight="5"
+            android:layout_weight="6"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
@@ -68,7 +68,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/first_name"
@@ -79,7 +79,7 @@
             <TextView
                 android:id="@+id/firstNameTextView"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
@@ -98,7 +98,7 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="4"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/birthday"
@@ -109,7 +109,7 @@
             <TextView
                 android:id="@+id/bdayTextView"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
@@ -127,7 +127,7 @@
             android:weightSum="10">
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="5"
+            android:layout_weight="4"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/e_mail"
@@ -138,11 +138,11 @@
             <TextView
                 android:id="@+id/mailTextView"
                 android:layout_width="0dp"
-                android:layout_weight="5"
+                android:layout_weight="6"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textSize="24dp"
+                android:textSize="20dp"
                 />
 
 
