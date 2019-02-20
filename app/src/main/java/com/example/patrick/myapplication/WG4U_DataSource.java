@@ -79,6 +79,7 @@ public class WG4U_DataSource {
             cursor.moveToNext();
         }
         cursor.close();
+        Log.d(LOG_TAG,Integer.toString(residentList.size()));
 
         return residentList;
 

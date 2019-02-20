@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         residentList = dataSource.getResidentsSearch("email = " + "'" + user + "'");
         //found a resident
-        if(residentList != null) {
+        if(residentList.size() != 0) {
             Resident resident = residentList.get(0);
             //check the password
             if (resident.getPassword().equals(password)) {
