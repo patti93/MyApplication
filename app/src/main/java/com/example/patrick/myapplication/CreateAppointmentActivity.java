@@ -48,7 +48,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
         if(!date_pattern.matcher(date).matches()){
             Toast.makeText(this,R.string.check_date,Toast.LENGTH_SHORT).show();
         }
-        else if(isEmpty(inputAppointmentDate)||isEmpty(inputAppointmentDescription)||isEmpty(inputAppointmentName)){
+        else if(isEmpty(inputAppointmentDate)||isEmpty(inputAppointmentName)){
             Toast.makeText(this,R.string.empty_Fields,Toast.LENGTH_SHORT).show();
         }
         else {

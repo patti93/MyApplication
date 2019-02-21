@@ -33,11 +33,8 @@ public class SearchWGActivity extends AppCompatActivity {
 
     List<Wg> wgList = dataSource.getWGsSearch("name = '" + wgSearchString + "'");
 
-    if(wgList == null){
+    if(wgList.size() == 0){
         Toast.makeText(SearchWGActivity.this,R.string.no_result,Toast.LENGTH_SHORT).show();
-
-
-
         dataSource.close();
     } else{
         dataSource.close();

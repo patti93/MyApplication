@@ -66,8 +66,6 @@ public class WG4U_DataSource {
 
         Cursor cursor = database.query("residents",residentColumns,searchString,null,null,null, null);
 
-        //if(cursor.getCount() == 0) return null;
-
         cursor.moveToFirst();
         Resident resident;
 
@@ -127,6 +125,8 @@ public class WG4U_DataSource {
     //WG Operations
     public Wg insertWg(String name, String street, String hnr,String zip,String town, String country, String description, String password){
 
+        Wg wg;
+
         ContentValues values = new ContentValues();
 
         values.put("name",name);
@@ -144,7 +144,8 @@ public class WG4U_DataSource {
 
         cursor.moveToFirst();
 
-        return cursorToWg(cursor);
+        wg = cursorToWg(cursor);
+        return wg;
     }
 
     public Wg cursorToWg(Cursor cursor){
@@ -188,14 +189,13 @@ public class WG4U_DataSource {
 
     public List<Wg> getWGsSearch(String searchString){
 
+
+        Wg wg;
         List<Wg> wgList = new ArrayList<>();
 
         Cursor cursor = database.query("wgs",wgColumns,searchString,null,null,null, null);
 
         cursor.moveToFirst();
-        Wg wg;
-
-        if(cursor.getCount() == 0) return null;
 
         while (!cursor.isAfterLast()){
 
@@ -203,7 +203,9 @@ public class WG4U_DataSource {
             wgList.add(wg);
             Log.d(LOG_TAG, "ID: " + wg.getId() + ", Inhalt: " + wg.toString());
             cursor.moveToNext();
+
         }
+
         cursor.close();
 
         return wgList;
@@ -229,14 +231,19 @@ public class WG4U_DataSource {
 
         cursor.moveToFirst();
 
-        if(cursor.getCount() == 0) return null;
+        if(cursor.getCount() == 0){
+            cursor.close();
+            return null;
+        }
+        else{
 
-        long wg_id = cursor.getLong(cursor.getColumnIndex("wg_id"));
+            long wg_id = cursor.getLong(cursor.getColumnIndex("wg_id"));
 
-
-        if (getWGsSearch("id = " +wg_id) != null){
-            wgList = getWGsSearch("id = " +wg_id);
-            return wgList.get(0);
+            if (getWGsSearch("id = " +wg_id).size() != 0){
+                wgList = getWGsSearch("id = " +wg_id);
+                cursor.close();
+                return wgList.get(0);
+            }
         }
         cursor.close();
 
@@ -253,7 +260,6 @@ public class WG4U_DataSource {
 
         cursor.moveToFirst();
 
-        if(cursor.getCount() == 0) return null;
 
         //create an ArrayList with all resident IDs
         while (!cursor.isAfterLast()){
@@ -276,7 +282,6 @@ public class WG4U_DataSource {
             Log.d(LOG_TAG,resident.toString());
 
         }
-
         return residentListResult;
 
     }

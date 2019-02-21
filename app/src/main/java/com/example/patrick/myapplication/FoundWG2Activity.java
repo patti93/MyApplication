@@ -36,7 +36,7 @@ public class FoundWG2Activity extends AppCompatActivity {
 
         if(checkInput()){
             //check if there is already a wg with that name
-            if (dataSource.getWGsSearch("name = '" + wgData[0] + "'") == null) {
+            if (dataSource.getWGsSearch("name = '" + wgData[0] + "'").size() == 0) {
                 Wg wg = dataSource.insertWg(wgData[0], adress[0], adress[1], adress[2], adress[3], adress[4], wgData[2], wgData[1]);
                 dataSource.associateWgToResident(wg,resident.getActiveResident());
                 Log.d(LOG_TAG,"Bewohner:" + resident.getActiveResident().getEmail() + " ist in: " + wg.getName() + " eingezogen!");
