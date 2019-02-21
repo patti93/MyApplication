@@ -34,7 +34,14 @@ public class AppointmentAdapter extends ArrayAdapter {
         }
 
 
-        time = Integer.toString(appointment.getHour()) + ":" + Integer.toString(appointment.getMinute());
+        String hour = Integer.toString(appointment.getHour());
+        String minute = Integer.toString(appointment.getMinute());
+
+        if(appointment.getHour()<10) hour = "0" + hour;
+
+        if(appointment.getMinute()<10) minute = "0" + minute;
+
+        time =  hour + ":" + minute;
 
         TextView appointmentName = convertView.findViewById(R.id.appointmentListViewItemName);
         appointmentName.setText(appointment.getName());

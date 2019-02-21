@@ -169,7 +169,7 @@ public class WG4U_DataSource {
 
         List<Wg> wgList = new ArrayList<>();
 
-        Cursor cursor = database.query("wgs",wgColumns,null,null,null,null, null);
+        Cursor cursor = database.query("wgs",wgColumns,null,null,null,null, "name ASC");
 
         cursor.moveToFirst();
         Wg wg;
@@ -335,10 +335,11 @@ public class WG4U_DataSource {
 
         Cursor cursor;
 
-        cursor = database.query("appointment",appointmentCollumns,searchstring,null,null,null,null,null);
+        cursor = database.query("appointment",appointmentCollumns,searchstring,null,null,null,"hour ASC",null);
 
         cursor.moveToFirst();
 
+        Log.d(LOG_TAG,"liste:");
         while (!cursor.isAfterLast()){
 
             appointmentList.add(cursorToAppointment(cursor));
@@ -387,21 +388,35 @@ public class WG4U_DataSource {
             cursor.moveToNext();
         }
 
+        String cond = "";
         //add one appointment for each ID with matching date to the result
+        for (int i = 0; i < appointmenIDs.size(); i++){
+
+            if(i==0) cond = "id = " + Long.toString(appointmenIDs.get(i));
+            else cond = cond + " OR id = " + Long.toString(appointmenIDs.get(i));
+
+        }
+
+          /*
         for(Long i: appointmenIDs){
-            appointmentListTemp = getAppointmentsSearch("id = " + i + " AND date = '" + date + "'");
+            appointmentListTemp = getAppointmentsSearch("(id = " + i + " AND date = '" + date + "')");
             //appointmentListTemp = database.execSQL("SELECT * FROM appointment WHERE id = " + i + " AND date = '" + date + "'" + "ODER BY hour ASC");
 
-            if(appointmentListTemp.size()>0)
-            appointmentListResult.add(appointmentListTemp.get(0));
-        }
+
+            //if(appointmentListTemp.size()>0)
+            //appointmentListResult.add(appointmentListTemp.get(0));
+        }*/
+          cond = "(" + cond + ") AND date = '" + date + "'";
+        if(appointmenIDs.size()>0) appointmentListResult = getAppointmentsSearch(cond);
+
+        Log.d(LOG_TAG,"SQL:" + cond);
 
         cursor.close();
 
-        //Log.d(LOG_TAG,"Termine von WG" + wg.getName());
+        Log.d(LOG_TAG,"Termine von WG" + wg.getName());
         for(Appointment appointment: appointmentListResult){
 
-            //Log.d(LOG_TAG,appointment.toString());
+            Log.d(LOG_TAG,appointment.toString());
 
         }
 
