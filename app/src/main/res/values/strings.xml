@@ -53,5 +53,8 @@
     <string name="safe">Safe</string>
     <string name="check_date">Check date</string>
     <string name="task_on">"Tasks on "</string>
+    <string name="set_date">Date</string>
+    <string name="set_Time">Time</string>
+    <string name="name_required">A name is required</string>
 
 </resources>

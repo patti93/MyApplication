@@ -26,16 +26,24 @@ public class AppointmentAdapter extends ArrayAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
 
         Appointment appointment = (Appointment) getItem(position);
+        String time;
+
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_appointment, parent, false);
         }
+
+
+        time = Integer.toString(appointment.getHour()) + ":" + Integer.toString(appointment.getMinute());
 
         TextView appointmentName = convertView.findViewById(R.id.appointmentListViewItemName);
         appointmentName.setText(appointment.getName());
 
         TextView appointmentDescription = convertView.findViewById(R.id.appointmentListViewItemDescription);
         appointmentDescription.setText(appointment.getDescription());
+
+        TextView appointmentTime = convertView.findViewById(R.id.timeTextView);
+        appointmentTime.setText(time);
 
 
         if(position % 2 == 0){

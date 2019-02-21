@@ -53,4 +53,7 @@
     <string name="safe">Speichern</string>
     <string name="check_date">Ungültiges Datum</string>
     <string name="task_on">"Aufgaben am "</string>
+    <string name="set_date">Datum</string>
+    <string name="set_Time">Uhrzeit</string>
+    <string name="name_required">Pflichtfeld: Name</string>
 </resources>

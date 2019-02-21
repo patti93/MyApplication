@@ -63,6 +63,7 @@ public class ShowCalenderActivity extends AppCompatActivity {
 
     public void updateListView(String date){
 
+        //listView.invalidate();
 
         textView.setText(task_on + date);
 
@@ -84,6 +85,8 @@ public class ShowCalenderActivity extends AppCompatActivity {
         listView.setAdapter(appointmentAdapter);
 
         dataSource.close();
+
+
     }
 
     public void redirectCreateAppointment(View view){

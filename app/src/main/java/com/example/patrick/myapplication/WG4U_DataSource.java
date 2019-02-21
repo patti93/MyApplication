@@ -18,7 +18,7 @@ public class WG4U_DataSource {
     private String [] residentColumns = {"id","firstName","lastName", "bday","email", "password"};
     private String [] wgColumns = {"id","name","street","hnr","zip","town","country","description","password"};
     private String [] lives_inColumns = {"wg_id","resident_id"};
-    private String [] appointmentCollumns = {"id","name","date","description"};
+    private String [] appointmentCollumns = {"id","name","date","description","hour","minute"};
     private String [] has_appointmentColumns = {"wg_id","appointment_id"};
 
     public WG4U_DataSource(Context context) {
@@ -289,7 +289,7 @@ public class WG4U_DataSource {
 
 
     //appointment operations
-    public Appointment insertAppointment(String name, String date, String description){
+    public Appointment insertAppointment(String name, String date, String description,int hour, int minute){
 
         long insertID;
 
@@ -298,6 +298,8 @@ public class WG4U_DataSource {
         values.put("name",name);
         values.put("date",date);
         values.put("description",description);
+        values.put("hour",hour);
+        values.put("minute",minute);
 
         insertID = database.insert("appointment",null,values);
 
@@ -319,8 +321,10 @@ public class WG4U_DataSource {
         String name = cursor.getString(cursor.getColumnIndex("name"));
         String date = cursor.getString(cursor.getColumnIndex("date"));
         String description = cursor.getString(cursor.getColumnIndex("description"));
+        int hour = cursor.getInt(cursor.getColumnIndex("hour"));
+        int minute = cursor.getInt(cursor.getColumnIndex("minute"));
 
-        Appointment appointment = new Appointment(id, name, date, description);
+        Appointment appointment = new Appointment(id, name, date, description,hour,minute);
 
         return appointment;
     }
@@ -335,15 +339,20 @@ public class WG4U_DataSource {
 
         cursor.moveToFirst();
 
-        //if(cursor.getCount() == 0) return null;
-
-
         while (!cursor.isAfterLast()){
 
             appointmentList.add(cursorToAppointment(cursor));
             cursor.moveToNext();
         }
         cursor.close();
+
+
+        //Log.d(LOG_TAG,"Termine von WG" );
+        for(Appointment appointment: appointmentList){
+
+            Log.d(LOG_TAG,appointment.toString());
+
+        }
 
         return appointmentList;
     }
@@ -381,16 +390,18 @@ public class WG4U_DataSource {
         //add one appointment for each ID with matching date to the result
         for(Long i: appointmenIDs){
             appointmentListTemp = getAppointmentsSearch("id = " + i + " AND date = '" + date + "'");
+            //appointmentListTemp = database.execSQL("SELECT * FROM appointment WHERE id = " + i + " AND date = '" + date + "'" + "ODER BY hour ASC");
+
             if(appointmentListTemp.size()>0)
             appointmentListResult.add(appointmentListTemp.get(0));
         }
 
         cursor.close();
 
-        Log.d(LOG_TAG,"Termine von WG" + wg.getName());
+        //Log.d(LOG_TAG,"Termine von WG" + wg.getName());
         for(Appointment appointment: appointmentListResult){
 
-            Log.d(LOG_TAG,appointment.toString());
+            //Log.d(LOG_TAG,appointment.toString());
 
         }
 
