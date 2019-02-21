@@ -21,11 +21,11 @@ import java.util.regex.Pattern;
 public class CreateAppointmentActivity extends AppCompatActivity {
 
     EditText inputAppointmentName;
-    EditText inputAppointmentDate;
+
     EditText inputAppointmentDescription;
 
-    int hourIn;
-    int minutesIn;
+    int hourIn = 0;
+    int minutesIn = 0;
 
     String date;
 
@@ -37,6 +37,23 @@ public class CreateAppointmentActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment_ativity);
+
+        // Get current year, month and day.
+        Calendar now = Calendar.getInstance();
+        int year = now.get(java.util.Calendar.YEAR);
+        int month = now.get(java.util.Calendar.MONTH);
+        int dayOfMonth = now.get(java.util.Calendar.DAY_OF_MONTH);
+
+        String yearString = Integer.toString(year);
+        String monthString = Integer.toString(month + 1);
+        String dayString = Integer.toString(dayOfMonth);
+
+        if(month < 10)monthString = "0" + monthString;
+        if(dayOfMonth < 10)dayString = "0" + dayString;
+
+        date = dayString + "." + monthString + "." + yearString;
+
+
     }
 
 
@@ -54,7 +71,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
 
 
         if(isEmpty(inputAppointmentName)){
-            Toast.makeText(this,R.string.empty_Fields,Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,R.string.name_required,Toast.LENGTH_SHORT).show();
         }
         else {
             activeResident = new ActiveResident(this);
