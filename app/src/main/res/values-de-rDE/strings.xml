@@ -56,4 +56,11 @@
     <string name="set_date">Datum</string>
     <string name="set_Time">Uhrzeit</string>
     <string name="name_required">Pflichtfeld: Name</string>
+    <string name="wg_details">WG Details</string>
+    <string name="action_settings">Optionen</string>
+    <string name="address">Adresse</string>
+    <string name="edit">Bearbeiten</string>
+    <string name="delete_wg">WG löschen</string>
+    <string name="large_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
+    <string name="title_activity_show_wg">ShowWGActivitiy</string>
 </resources>

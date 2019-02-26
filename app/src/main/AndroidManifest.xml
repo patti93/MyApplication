@@ -9,12 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreateAppointmentActivity"></activity>
+        <activity android:name=".ShowWGActivity"/>
+        <activity android:name=".CreateAppointmentActivity" />
         <activity android:name=".ShowToDoActivity" />
         <activity android:name=".ShowJournalActivity" />
         <activity android:name=".ShowShoppingListActivity" />
         <activity android:name=".ShowCalenderActivity" />
-        <activity android:name=".ShowWGActivity" />
         <activity android:name=".ShowUserActivity" />
         <activity android:name=".WgLoginActivity" />
         <activity android:name=".FoundWG2Activity" />
