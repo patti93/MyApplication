@@ -47,11 +47,12 @@
         android:inputType="text" />
 
     <Button
+        android:id="@+id/button_add_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_add_item"
         android:layout_alignParentEnd="true"
-        android:text="@string/plus_symbol"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:onClick="onClick"
+        android:text="@string/plus_symbol" />
 
 </RelativeLayout>

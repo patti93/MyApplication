@@ -20,6 +20,8 @@ public class WG4U_DataSource {
     private String [] lives_inColumns = {"wg_id","resident_id"};
     private String [] appointmentCollumns = {"id","name","date","description","hour","minute"};
     private String [] has_appointmentColumns = {"wg_id","appointment_id"};
+    private String [] shoppingItemColumns = {"id", "item_name"};
+    private String [] has_shopping_itemColumns = {"wg_id", "shopping_item_id"};
 
     public WG4U_DataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -428,4 +430,92 @@ public class WG4U_DataSource {
 
 
 
+
+    // Shopping List Operations
+
+    // Insert item_name name in table shopping_item.
+    // Returns itemID
+    public long insertShoppingItem(String shoppingItem){
+
+        ContentValues values = new ContentValues();
+        values.put("item_name",shoppingItem);
+
+        return database.insert("shopping_item",null,values);
+
+    }
+
+    // Insert wg_id and shopping_item_id in table has_shopping_item
+    // Returns itemID
+    public long associateShoppingListToWG(Wg wg, long itemId){
+
+
+        ContentValues values = new ContentValues();
+
+        values.put("wg_id",wg.getId());
+        values.put("shopping_item_id",itemId);
+
+        return database.insert("has_shopping_item",null,values);
+
+    }
+
+
+    // Get item_name (String) from table shopping_item.
+    // Requires Wg Object
+    public ArrayList<String> getWgShoppingList(Wg wg) {
+
+        ArrayList<Long> shoppingItemIDs = new ArrayList<>();
+
+        //returns a cursor containing all shopping item IDs for a certain WG
+        Cursor cursor = database.query("has_shopping_item",has_shopping_itemColumns,
+                "wg_id = " + wg.getId() ,null,null,null,null,null);
+
+        cursor.moveToFirst();
+
+        //create an ArrayList with all shoppingItem IDs
+        while (!cursor.isAfterLast()){
+            shoppingItemIDs.add(cursor.getLong(cursor.getColumnIndex("shopping_item_id")));
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+
+        return getShoppingItemNamesSearch(shoppingItemIDs);
+
+    }
+
+    // Helper method for getWgShoppingList.
+    // Get item_name (String) from table shopping_item.
+    // Requires item id
+    private ArrayList<String> getShoppingItemNamesSearch(ArrayList<Long> shoppingItemIDs) {
+
+        ArrayList<String> shoppingListResult = new ArrayList<>();
+
+        for (int i = 0; i < shoppingItemIDs.size(); i++) {
+            Cursor cursor = database.query("shopping_item", shoppingItemColumns,
+                    "id = " + shoppingItemIDs.get(i), null, null, null, null, null);
+
+            cursor.moveToFirst();
+
+            //create an ArrayList with all shoppingItem IDs
+            while (!cursor.isAfterLast()) {
+                shoppingListResult.add(cursor.getString(cursor.getColumnIndex("item_name")));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+
+
+        return shoppingListResult;
+    }
+
+    /*
+    // delete Shopping Item
+    // TBD
+    public ArrayList<String> deleteShoppingItem(String s) {
+
+        ArrayList<String> shoppingListResult = new ArrayList<>();
+
+        return shoppingListResult;
+    }*/
 }
