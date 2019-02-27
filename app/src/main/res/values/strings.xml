@@ -56,7 +56,6 @@
     <string name="set_date">Date</string>
     <string name="set_Time">Time</string>
     <string name="name_required">A name is required</string>
-    <string name="title_activity_show_wg">ShowWGActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
@@ -151,5 +150,8 @@
     <string name="address">Address</string>
     <string name="edit">Edit</string>
     <string name="delete_wg">Delete WG</string>
+    <string name="Add">Add</string>
+    <string name="add_a_new_product">Add a new product…</string>
+    <string name="plus_symbol" translatable="false">+</string>
 
 </resources>
