@@ -64,11 +64,13 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         // Get new list
         shoppingItems = dataSource.getWgShoppingList(wg);
 
-        // Refresh the adapter // Funktioniert nicht?
-        shoppingItemsAdapter.notifyDataSetChanged();
-
         // Close DB
         dataSource.close();
+
+        // Refresh the adapter
+        shoppingItemsAdapter.clear();
+        shoppingItemsAdapter.addAll(shoppingItems);
+        shoppingItemsAdapter.notifyDataSetChanged();
 
         // Clear input Text
         input_item.setText("");
@@ -96,6 +98,8 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                         dataSource.close();
 
                         // Refresh the adapter
+                        shoppingItemsAdapter.clear();
+                        shoppingItemsAdapter.addAll(shoppingItems);
                         shoppingItemsAdapter.notifyDataSetChanged();
 
                         // Return true consumes the long click event (marks it handled)
