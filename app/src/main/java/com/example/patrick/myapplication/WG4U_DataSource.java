@@ -433,13 +433,16 @@ public class WG4U_DataSource {
 
     // Insert item_name name in table shopping_item.
     // Returns itemID
-    public long insertShoppingItem(String shoppingItem){
+    public long insertShoppingItem(String shoppingItem, Wg wg){
 
-        ContentValues values = new ContentValues();
-        values.put("item_name",shoppingItem);
+        if (getShoppingItemIDsForThisWG(shoppingItem, wg).size() == 0) {
+            ContentValues values = new ContentValues();
+            values.put("item_name", shoppingItem);
 
-        return database.insert("shopping_item",null,values);
-
+            return database.insert("shopping_item", null, values);
+        }
+        else
+            return 0;
     }
 
     // Insert wg_id and shopping_item_id in table has_shopping_item
@@ -508,16 +511,6 @@ public class WG4U_DataSource {
     public void deleteShoppingItem(String item_name, Wg wg) {
 
         ArrayList<String> itemIDs = this.getShoppingItemIDsForThisWG(item_name, wg);
-
-        /*
-            Params:
-            table – the table to delete from
-            whereClause – the optional WHERE clause to apply when deleting. Passing null will delete all rows.
-            whereArgs – You may include ?s in the where clause, which will be replaced by the values from whereArgs. The values will be bound as Strings.
-
-            Returns:
-            the number of rows affected if a whereClause is passed in, 0 otherwise. To remove all rows and get a count pass "1" as the whereClause.
-        */
 
         for (int i = 0; i < itemIDs.size(); i++) {
             database.delete("shopping_item", "id=?", new String[]{itemIDs.get(i)});

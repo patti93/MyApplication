@@ -62,8 +62,10 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         dataSource.open();
 
         // Insert
-        long itemID = dataSource.insertShoppingItem(itemText);
-        dataSource.associateShoppingListToWG(wg, itemID);
+        long itemID = dataSource.insertShoppingItem(itemText, wg);
+
+        if (itemID != 0)
+            dataSource.associateShoppingListToWG(wg, itemID);
 
         // Get new list
         shoppingItems = dataSource.getShoppingItemNameList(wg);
