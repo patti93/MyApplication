@@ -2,7 +2,9 @@ package com.example.patrick.myapplication;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -10,6 +12,8 @@ import java.util.ArrayList;
 
 
 public class ShowShoppingListActivity extends AppCompatActivity {
+
+    private static final String LOG_TAG = WG4U_DataSource.class.getSimpleName();
 
     private ArrayList<String> shoppingItems;
     private ArrayAdapter<String> shoppingItemsAdapter;
@@ -32,7 +36,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         wg = dataSource.findResidentsWg(activeResident.getActiveResident());
 
         // Get shopping list from DS
-        shoppingItems = dataSource.getWgShoppingList(wg);
+        shoppingItems = dataSource.getShoppingItemNameList(wg);
 
         // Set Adapter
         shoppingItemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, shoppingItems);
@@ -44,7 +48,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         // Close DB
         dataSource.close();
 
-        //setupListViewListener();
+        setupListViewListener();
     }
 
     // Called when a new product added
@@ -62,7 +66,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         dataSource.associateShoppingListToWG(wg, itemID);
 
         // Get new list
-        shoppingItems = dataSource.getWgShoppingList(wg);
+        shoppingItems = dataSource.getShoppingItemNameList(wg);
 
         // Close DB
         dataSource.close();
@@ -77,7 +81,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
     }
 
-    /*
+
     // Called when ListViewItem long pressed
     // Delete that item
     // TBD
@@ -92,7 +96,10 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                         dataSource.open();
 
                         // Remove item
-                        shoppingItems = dataSource.deleteShoppingItem(shoppingItems.get(pos));
+                        dataSource.deleteShoppingItem(shoppingItems.get(pos), wg);
+
+                        // Refresh list
+                        shoppingItems = dataSource.getShoppingItemNameList(wg);
 
                         // Close DB
                         dataSource.close();
@@ -107,6 +114,6 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                     }
 
                 });
-    }*/
+    }
 
 }

@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -427,10 +429,6 @@ public class WG4U_DataSource {
     }
 
 
-
-
-
-
     // Shopping List Operations
 
     // Insert item_name name in table shopping_item.
@@ -458,10 +456,9 @@ public class WG4U_DataSource {
 
     }
 
-
     // Get item_name (String) from table shopping_item.
     // Requires Wg Object
-    public ArrayList<String> getWgShoppingList(Wg wg) {
+    public ArrayList<String> getShoppingItemNameList(Wg wg) {
 
         ArrayList<Long> shoppingItemIDs = new ArrayList<>();
 
@@ -476,7 +473,6 @@ public class WG4U_DataSource {
             shoppingItemIDs.add(cursor.getLong(cursor.getColumnIndex("shopping_item_id")));
             cursor.moveToNext();
         }
-
         cursor.close();
 
         return getShoppingItemNamesSearch(shoppingItemIDs);
@@ -504,18 +500,68 @@ public class WG4U_DataSource {
             cursor.close();
         }
 
-
-
         return shoppingListResult;
     }
 
-    /*
-    // delete Shopping Item
-    // TBD
-    public ArrayList<String> deleteShoppingItem(String s) {
 
-        ArrayList<String> shoppingListResult = new ArrayList<>();
+    // deletes all  Shopping Items with that item_name in this wg
+    public void deleteShoppingItem(String item_name, Wg wg) {
 
-        return shoppingListResult;
-    }*/
+        ArrayList<String> itemIDs = this.getShoppingItemIDsForThisWG(item_name, wg);
+
+        /*
+            Params:
+            table – the table to delete from
+            whereClause – the optional WHERE clause to apply when deleting. Passing null will delete all rows.
+            whereArgs – You may include ?s in the where clause, which will be replaced by the values from whereArgs. The values will be bound as Strings.
+
+            Returns:
+            the number of rows affected if a whereClause is passed in, 0 otherwise. To remove all rows and get a count pass "1" as the whereClause.
+        */
+
+        for (int i = 0; i < itemIDs.size(); i++) {
+            database.delete("shopping_item", "id=?", new String[]{itemIDs.get(i)});
+            database.delete("has_shopping_item", "shopping_item_id=? AND wg_id=?", new String[]{itemIDs.get(i), String.valueOf(wg.getId())} );
+        }
+    }
+
+    public ArrayList<String> getShoppingItemIDsForThisWG(String item_name, Wg wg) {
+
+        ArrayList<String> shoppingItemIDs = new ArrayList<>();
+        ArrayList<String> resultIDs = new ArrayList<>();
+
+        // Get List of IDs with item_name
+        Cursor cursor =     this.database.query("shopping_item", shoppingItemColumns, "item_name='"+item_name+"'",null, null
+                            ,null, null, null);
+
+        if (cursor.moveToFirst()) {
+
+            //create an ArrayList with all shoppingItem IDs
+            while (!cursor.isAfterLast()) {
+                shoppingItemIDs.add(cursor.getString(cursor.getColumnIndex("id")));
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+
+        // Lookup the right item_id for this WG
+        for (int i = 0; i < shoppingItemIDs.size(); i++) {
+            cursor =    this.database.query("has_shopping_item", has_shopping_itemColumns, "shopping_item_id='" + shoppingItemIDs.get(i) + "' and wg_id='"+wg.getId()+"'", null, null
+                        , null, null, null);
+
+            if(cursor.moveToFirst()) {
+
+                //create an ArrayList with all shoppingItem IDs
+                while (!cursor.isAfterLast()) {
+                    resultIDs.add(cursor.getString(cursor.getColumnIndex("shopping_item_id")));
+                    cursor.moveToNext();
+                }
+            }
+            cursor.close();
+        }
+
+        return resultIDs;
+    }
+
+
 }
