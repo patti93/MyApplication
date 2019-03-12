@@ -55,31 +55,33 @@ public class ShowShoppingListActivity extends AppCompatActivity {
     public void onClick(View v) {
         EditText input_item = findViewById(R.id.input_item);
         String itemText = input_item.getText().toString();
-        //shoppingItemsAdapter.add(itemText);
 
-        // Open DB
-        dataSource = new WG4U_DataSource(this);
-        dataSource.open();
+        if(!itemText.isEmpty()) {
+            // Open DB
+            dataSource = new WG4U_DataSource(this);
+            dataSource.open();
 
-        // Insert
-        long itemID = dataSource.insertShoppingItem(itemText, wg);
+            // Insert
+            long itemID = dataSource.insertShoppingItem(itemText, wg);
 
-        if (itemID != 0)
-            dataSource.associateShoppingListToWG(wg, itemID);
+            if (itemID != 0)
+                dataSource.associateShoppingListToWG(wg, itemID);
 
-        // Get new list
-        shoppingItems = dataSource.getShoppingItemNameList(wg);
+            // Get new list
+            shoppingItems = dataSource.getShoppingItemNameList(wg);
 
-        // Close DB
-        dataSource.close();
+            // Close DB
+            dataSource.close();
 
-        // Refresh the adapter
-        shoppingItemsAdapter.clear();
-        shoppingItemsAdapter.addAll(shoppingItems);
-        shoppingItemsAdapter.notifyDataSetChanged();
+            // Refresh the adapter
+            shoppingItemsAdapter.clear();
+            shoppingItemsAdapter.addAll(shoppingItems);
+            shoppingItemsAdapter.notifyDataSetChanged();
 
-        // Clear input Text
-        input_item.setText("");
+            // Clear input Text
+            input_item.setText("");
+
+        }
 
     }
 
