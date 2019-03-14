@@ -18,12 +18,18 @@ public class WG4U_DataSource {
     private WG4U_DB_Helper dbHelper;
 
     private String [] residentColumns = {"id","firstName","lastName", "bday","email", "password"};
+
     private String [] wgColumns = {"id","name","street","hnr","zip","town","country","description","password"};
     private String [] lives_inColumns = {"wg_id","resident_id"};
+
     private String [] appointmentCollumns = {"id","name","date","description","hour","minute"};
     private String [] has_appointmentColumns = {"wg_id","appointment_id"};
+
     private String [] shoppingItemColumns = {"id", "item_name"};
     private String [] has_shopping_itemColumns = {"wg_id", "shopping_item_id"};
+
+    private String [] todoColumns = {"id", "todo_name"};
+    private String [] has_todoColumns = {"wg_id", "todo_id"};
 
     public WG4U_DataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
@@ -556,5 +562,133 @@ public class WG4U_DataSource {
         return resultIDs;
     }
 
+
+    // ToDo List Operations
+
+    // Insert todo_name name in table todo.
+    // Returns itemID
+    public long insertTodo(String todo_name, Wg wg){
+
+        if (getTodoIDsForThisWG(todo_name, wg).size() == 0) {
+            ContentValues values = new ContentValues();
+            values.put("todo_name", todo_name);
+
+            return database.insert("todo", null, values);
+        }
+        else
+            return 0;
+    }
+
+
+    // Insert wg_id and todo_id in table has_todo
+    // Returns itemID
+    public long associateTodoToWG(Wg wg, long todoId){
+
+
+        ContentValues values = new ContentValues();
+
+        values.put("wg_id",wg.getId());
+        values.put("todo_id",todoId);
+
+        return database.insert("has_todo",null,values);
+
+    }
+
+    // Get todo_name (String) from table todo.
+    // Requires Wg Object
+    public ArrayList<String> getTodoNameList(Wg wg) {
+
+        ArrayList<Long> todoIDs = new ArrayList<>();
+
+        //returns a cursor containing all todo IDs for a certain WG
+        Cursor cursor = database.query("has_todo",has_todoColumns,
+                "wg_id = " + wg.getId() ,null,null,null,null,null);
+
+        cursor.moveToFirst();
+
+        //create an ArrayList with all ToDo IDs
+        while (!cursor.isAfterLast()){
+            todoIDs.add(cursor.getLong(cursor.getColumnIndex("todo_id")));
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return getTodoNamesSearch(todoIDs);
+
+    }
+
+    // Helper method for getWgShoppingList.
+    // Get item_name (String) from table shopping_item.
+    // Requires item id
+    private ArrayList<String> getTodoNamesSearch(ArrayList<Long> todoIDs) {
+
+        ArrayList<String> todoListResult = new ArrayList<>();
+
+        for (int i = 0; i < todoIDs.size(); i++) {
+            Cursor cursor = database.query("todo", todoColumns,
+                    "id = " + todoIDs.get(i), null, null, null, null, null);
+
+            cursor.moveToFirst();
+
+            //create an ArrayList with all shoppingItem IDs
+            while (!cursor.isAfterLast()) {
+                todoListResult.add(cursor.getString(cursor.getColumnIndex("todo_name")));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return todoListResult;
+    }
+
+
+    // deletes all  Shopping Items with that item_name in this wg
+    public void deleteTodo(String todo_name, Wg wg) {
+
+        ArrayList<String> todoIDs = this.getTodoIDsForThisWG(todo_name, wg);
+
+        for (int i = 0; i < todoIDs.size(); i++) {
+            database.delete("todo", "id=?", new String[]{todoIDs.get(i)});
+            database.delete("has_todo", "todo_id=? AND wg_id=?", new String[]{todoIDs.get(i), String.valueOf(wg.getId())} );
+        }
+    }
+
+    public ArrayList<String> getTodoIDsForThisWG(String todo_name, Wg wg) {
+
+        ArrayList<String> todoIDs = new ArrayList<>();
+        ArrayList<String> resultIDs = new ArrayList<>();
+
+        // Get List of IDs with todo_name
+        Cursor cursor =     this.database.query("todo", todoColumns, "todo_name='"+todo_name+"'",null, null
+                ,null, null, null);
+
+        if (cursor.moveToFirst()) {
+
+            //create an ArrayList with all shoppingItem IDs
+            while (!cursor.isAfterLast()) {
+                todoIDs.add(cursor.getString(cursor.getColumnIndex("id")));
+                cursor.moveToNext();
+            }
+        }
+        cursor.close();
+
+        // Lookup the right item_id for this WG
+        for (int i = 0; i < todoIDs.size(); i++) {
+            cursor =    this.database.query("has_todo", has_todoColumns, "todo_id='" + todoIDs.get(i) + "' and wg_id='"+wg.getId()+"'", null, null
+                    , null, null, null);
+
+            if(cursor.moveToFirst()) {
+
+                //create an ArrayList with all shoppingItem IDs
+                while (!cursor.isAfterLast()) {
+                    resultIDs.add(cursor.getString(cursor.getColumnIndex("todo_id")));
+                    cursor.moveToNext();
+                }
+            }
+            cursor.close();
+        }
+
+        return resultIDs;
+    }
 
 }
