@@ -368,6 +368,14 @@ public class WG4U_DataSource {
         return appointmentList;
     }
 
+    public int deleteAppointment(long id){
+
+        return database.delete("appointment","id=" + Long.toString(id),null);
+    }
+
+
+
+
 //has appointment operations
     public long associateAppointmentToWG(Wg wg, Appointment appointment){
 
@@ -384,6 +392,8 @@ public class WG4U_DataSource {
 
         public List<Appointment> getWgAppointments(Wg wg,String date){
 
+            String sqlcond = "";
+
         List<Appointment> appointmentListTemp = new ArrayList<>();
         List<Appointment> appointmentListResult = new ArrayList<>();
         List<Long> appointmenIDs = new ArrayList<>();
@@ -398,28 +408,17 @@ public class WG4U_DataSource {
             cursor.moveToNext();
         }
 
-        String cond = "";
-        //add one appointment for each ID with matching date to the result
+        //Append IDs for SQL Statement
         for (int i = 0; i < appointmenIDs.size(); i++){
 
-            if(i==0) cond = "id = " + Long.toString(appointmenIDs.get(i));
-            else cond = cond + " OR id = " + Long.toString(appointmenIDs.get(i));
+            if(i==0) sqlcond = "id = " + Long.toString(appointmenIDs.get(i));
+            else sqlcond = sqlcond + " OR id = " + Long.toString(appointmenIDs.get(i));
 
         }
 
-          /*
-        for(Long i: appointmenIDs){
-            appointmentListTemp = getAppointmentsSearch("(id = " + i + " AND date = '" + date + "')");
-            //appointmentListTemp = database.execSQL("SELECT * FROM appointment WHERE id = " + i + " AND date = '" + date + "'" + "ODER BY hour ASC");
-
-
-            //if(appointmentListTemp.size()>0)
-            //appointmentListResult.add(appointmentListTemp.get(0));
-        }*/
-          cond = "(" + cond + ") AND date = '" + date + "'";
-        if(appointmenIDs.size()>0) appointmentListResult = getAppointmentsSearch(cond);
-
-        Log.d(LOG_TAG,"SQL:" + cond);
+        sqlcond = "(" + sqlcond + ") AND date = '" + date + "'";
+        //only execute if appointments exist
+        if(appointmenIDs.size()>0) appointmentListResult = getAppointmentsSearch(sqlcond);
 
         cursor.close();
 

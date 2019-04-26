@@ -154,5 +154,11 @@
     <string name="add_a_new_product">Add a new product…</string>
     <string name="plus_symbol" translatable="false">+</string>
     <string name="add_a_new_task">Add a new task…</string>
+    <string name="appointment_details">Appointment details</string>
+    <string name="appointment_Name">Name</string>
+    <string name="appointment_Note">Note</string>
+    <string name="appointment_Time">Time</string>
+    <string name="appointment_Date">Date</string>
+    <string name="delete">Delete</string>
 
 </resources>

@@ -64,5 +64,11 @@
     <string name="large_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</string>
     <string name="Add">Hinzufügen</string>
     <string name="add_a_new_product">Füge ein neues Produkt hinzu…</string>
-    <string name="add_a_new_task">Füge eine neue Aufgabe hinzu…</string>
+    <string name="add_a_new_task">Füge eine Aufgabe hinzu</string>
+    <string name="appointment_details">Termindetails</string>
+    <string name="appointment_Name">Name</string>
+    <string name="appointment_Note">Notiz</string>
+    <string name="appointment_Time">Zeit</string>
+    <string name="appointment_Date">Datum</string>
+    <string name="delete">Löschen</string>
 </resources>

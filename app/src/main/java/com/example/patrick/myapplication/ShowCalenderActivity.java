@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -83,9 +84,29 @@ public class ShowCalenderActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.appointmentListView);
         listView.setAdapter(appointmentAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Appointment appointment = (Appointment) parent.getItemAtPosition(position);
+
+                Intent intent = new Intent(getApplicationContext(),show_appointment.class);
+                intent.putExtra("id",appointment.getId());
+
+                startActivity(intent);
+
+
+            }
+        });
 
         dataSource.close();
 
+
+    }
+
+    public void redirectShowAppointment(View view, int id){
+
+        Intent intent = new Intent(this,show_appointment.class);
+        startActivity(intent);
 
     }
 
@@ -103,7 +124,5 @@ public class ShowCalenderActivity extends AppCompatActivity {
         updateListView(currentDateandTime);
 
  }
-
-
 
 }
