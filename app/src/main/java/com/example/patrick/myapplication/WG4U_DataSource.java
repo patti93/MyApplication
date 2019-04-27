@@ -374,6 +374,20 @@ public class WG4U_DataSource {
     }
 
 
+    public int updateAppointment(long id, String name,String date, String description, int hour, int minute){
+
+        ContentValues values = new ContentValues();
+
+        values.put("name",name);
+        values.put("date",date);
+        values.put("description",description);
+        values.put("hour",hour);
+        values.put("minute",minute);
+
+        return database.update("appointment",values,"id = " + Long.toString(id),null);
+
+    }
+
 
 
 //has appointment operations

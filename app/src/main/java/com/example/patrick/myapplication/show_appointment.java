@@ -12,6 +12,7 @@ public class show_appointment extends AppCompatActivity {
 
     WG4U_DataSource dataSource;
     Appointment appointment;
+    long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +20,7 @@ public class show_appointment extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        long id = intent.getLongExtra("id",0);
+        id = intent.getLongExtra("id",0);
 
         String time,hour,minute;
 
@@ -64,7 +65,16 @@ public class show_appointment extends AppCompatActivity {
 
     }
 
+    public void  onClickEdit(View view){
 
+        Intent intent = new Intent(this,EditAppointmentActivity.class);
+
+        intent.putExtra("id",appointment.getId());
+
+        startActivity(intent);
+
+        finish();
+    }
 
 
 

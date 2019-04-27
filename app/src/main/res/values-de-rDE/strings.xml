@@ -71,4 +71,5 @@
     <string name="appointment_Time">Zeit</string>
     <string name="appointment_Date">Datum</string>
     <string name="delete">Löschen</string>
+    <string name="edit_appointment">Termin bearbeiten</string>
 </resources>

@@ -12,13 +12,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
 
-public class CreateAppointmentActivity extends AppCompatActivity {
+public class EditAppointmentActivity extends AppCompatActivity {
 
     EditText inputAppointmentName;
 
@@ -33,31 +34,46 @@ public class CreateAppointmentActivity extends AppCompatActivity {
 
     ActiveResident activeResident;
 
+    Appointment appointment;
+
+    long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_appointment_ativity);
 
-        // Get current year, month and day.
-        Calendar now = Calendar.getInstance();
-        int year = now.get(java.util.Calendar.YEAR);
-        int month = now.get(java.util.Calendar.MONTH);
-        int dayOfMonth = now.get(java.util.Calendar.DAY_OF_MONTH);
+        TextView headline = findViewById(R.id.editTaskTextView);
 
-        String yearString = Integer.toString(year);
-        String monthString = Integer.toString(month + 1);
-        String dayString = Integer.toString(dayOfMonth);
+        TextView note = findViewById(R.id.appointmentDescriptionEditText);
 
-        if(month < 10)monthString = "0" + monthString;
-        if(dayOfMonth < 10)dayString = "0" + dayString;
+        TextView name = findViewById(R.id.appointmentNameEditText);
 
-        date = dayString + "." + monthString + "." + yearString;
+        headline.setText(R.string.edit_appointment);
+
+        Intent intent = getIntent();
+
+        id = intent.getLongExtra("id",0);
+
+        dataSource = new WG4U_DataSource(this);
+
+        dataSource.open();
+
+        appointment = dataSource.getAppointmentsSearch("id = " + Long.toString(id)).get(0);
+
+        name.setText(appointment.getName());
+
+        note.setText(appointment.getDescription());
+
+        date = appointment.getDate();
+
+        dataSource.close();
+
+
+
 
     }
 
     public void onClickSafe(View view){
-
-
 
         inputAppointmentDescription = findViewById(R.id.appointmentDescriptionEditText);
         String description = inputAppointmentDescription.getText().toString();
@@ -71,6 +87,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.name_required,Toast.LENGTH_SHORT).show();
         }
         else {
+            /*
             activeResident = new ActiveResident(this);
             dataSource = new WG4U_DataSource(this);
             dataSource.open();
@@ -79,6 +96,12 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             Wg wg = dataSource.findResidentsWg(activeResident.getActiveResident());
 
             dataSource.associateAppointmentToWG(wg,appointment);
+            dataSource.close();
+            */
+            dataSource.open();
+
+            dataSource.updateAppointment(id,name,date,description,hourIn,minutesIn);
+
             dataSource.close();
 
             finish();
@@ -104,13 +127,24 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             }
         };
 
+
+        /*
         // Get current year, month and day.
         Calendar now = Calendar.getInstance();
         int year = now.get(java.util.Calendar.YEAR);
         int month = now.get(java.util.Calendar.MONTH);
         int day = now.get(java.util.Calendar.DAY_OF_MONTH);
+        */
+        //current appointment date
+        String[] dateString = new String[3];
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(CreateAppointmentActivity.this,R.style.Theme_AppCompat_Light_Dialog,onDateSetListener,year,month,day);
+        dateString = appointment.getDate().split("\\.");
+
+        int day = Integer.parseInt(dateString[0]);
+        int month = Integer.parseInt(dateString[1]);
+        int year = Integer.parseInt(dateString[2]);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(EditAppointmentActivity.this,R.style.Theme_AppCompat_Light_Dialog,onDateSetListener,year,month - 1,day);
 
         datePickerDialog.setTitle(R.string.set_date);
 
@@ -133,13 +167,14 @@ public class CreateAppointmentActivity extends AppCompatActivity {
         int hour = now.get(java.util.Calendar.HOUR_OF_DAY);
         int minute = now.get(java.util.Calendar.MINUTE);
         */
-        TimePickerDialog timePickerDialog = new TimePickerDialog(CreateAppointmentActivity.this, R.style.Theme_AppCompat_Light_Dialog, onTimeSetListener, 0, 0, true);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(EditAppointmentActivity.this, R.style.Theme_AppCompat_Light_Dialog, onTimeSetListener, appointment.getHour(), appointment.getMinute(), true);
 
         timePickerDialog.setTitle(R.string.set_Time);
 
         timePickerDialog.show();
     }
-    
+
     private boolean isEmpty(EditText etText) {
         return etText.getText().toString().trim().length() <= 0;
     }

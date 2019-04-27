@@ -15,7 +15,7 @@
         android:layout_weight="2">
 
         <TextView
-            android:id="@+id/editTaskTextView"
+            android:id="@+id/newTaskTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -57,20 +57,20 @@
         android:weightSum="10">
 
 
-     <RelativeLayout
-         android:layout_width="0dp"
-         android:layout_height="wrap_content"
-         android:layout_weight="5"
-         android:layout_marginLeft="30dp">
-         <Button
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_centerInParent="true"
-             android:layout_marginVertical="30dp"
-             android:text="@string/set_date"
-             android:onClick="onClickDate"/>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:layout_marginLeft="30dp">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginVertical="30dp"
+                android:text="@string/set_date"
+                android:onClick="onClickDate"/>
 
-     </RelativeLayout>
+        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -93,7 +93,7 @@
 
 
 
-        />
+    />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="0dp"

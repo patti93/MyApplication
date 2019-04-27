@@ -160,5 +160,6 @@
     <string name="appointment_Time">Time</string>
     <string name="appointment_Date">Date</string>
     <string name="delete">Delete</string>
+    <string name="edit_appointment">Edit Task</string>
 
 </resources>

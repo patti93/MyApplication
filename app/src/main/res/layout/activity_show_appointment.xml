@@ -134,6 +134,7 @@
                 android:text="@string/edit"
                 android:textAllCaps="false"
                 android:textAlignment="center"
+                android:onClick="onClickEdit"
                 android:textSize="24dp"
                 />
             <Button
