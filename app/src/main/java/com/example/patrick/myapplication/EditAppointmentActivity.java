@@ -68,9 +68,6 @@ public class EditAppointmentActivity extends AppCompatActivity {
 
         dataSource.close();
 
-
-
-
     }
 
     public void onClickSafe(View view){
