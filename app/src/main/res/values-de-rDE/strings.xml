@@ -72,4 +72,5 @@
     <string name="appointment_Date">Datum</string>
     <string name="delete">Löschen</string>
     <string name="edit_appointment">Termin bearbeiten</string>
+    <string name="leaveWG">WG verlassen</string>
 </resources>

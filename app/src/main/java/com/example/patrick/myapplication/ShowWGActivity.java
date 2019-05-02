@@ -3,10 +3,13 @@ package com.example.patrick.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class ShowWGActivity extends AppCompatActivity {
 
+    WG4U_DataSource dataSource;
+    ActiveResident activeResident;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,8 +19,7 @@ public class ShowWGActivity extends AppCompatActivity {
         String address;
         String description;
         String password;
-        ActiveResident activeResident;
-        WG4U_DataSource dataSource;
+
 
         dataSource = new WG4U_DataSource(this);
         dataSource.open();
@@ -51,5 +53,21 @@ public class ShowWGActivity extends AppCompatActivity {
         TextView textView_wg_password = findViewById(R.id.print_password);
         password = dataSource.findResidentsWg(activeResident.getActiveResident()).getPassword();
         textView_wg_password.setText(password);
+    }
+
+    public void onClickLeaveWG(View view){
+
+        dataSource = new WG4U_DataSource(this);
+        activeResident = new ActiveResident(this);
+
+        dataSource.open();
+
+        dataSource.leaveWG(activeResident.getActiveResident().getId());
+
+        dataSource.close();
+
+        Intent intent = new Intent(this,NoWGActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

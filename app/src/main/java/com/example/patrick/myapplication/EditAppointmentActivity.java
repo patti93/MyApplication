@@ -58,11 +58,12 @@ public class EditAppointmentActivity extends AppCompatActivity {
 
         dataSource.open();
 
-        appointment = dataSource.getAppointmentsSearch("id = " + Long.toString(id)).get(0);
+        appointment = dataSource.getAppointmentsSearch("id = " + id).get(0);
 
         name.setText(appointment.getName());
 
         note.setText(appointment.getDescription());
+
 
         date = appointment.getDate();
 
@@ -156,7 +157,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 hourIn = hour;
                 minutesIn = minute;
-                Log.d("INFO",Integer.toString(hourIn)+ ":" + Integer.toString(minutesIn));
+                Log.d("INFO", hourIn + ":" + minutesIn);
             }
         };
         /*

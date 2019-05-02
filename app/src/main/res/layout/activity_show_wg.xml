@@ -142,11 +142,13 @@
                 android:text="@string/edit" />
 
             <Button
-                android:id="@+id/button_delete_wg"
+                android:id="@+id/button_leaveWG"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/delete_wg"/>
+                android:text="@string/leaveWG"
+                android:onClick="onClickLeaveWG"/>
+
         </LinearLayout>
 
         <LinearLayout

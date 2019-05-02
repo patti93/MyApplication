@@ -234,6 +234,13 @@ public class WG4U_DataSource {
 
     }
 
+    public long leaveWG(long id){
+
+        return database.delete("lives_in","resident_id=" + id,null);
+
+    }
+
+
     public Wg findResidentsWg(Resident resident){
 
         List<Wg> wgList = new ArrayList<>();
@@ -370,7 +377,7 @@ public class WG4U_DataSource {
 
     public int deleteAppointment(long id){
 
-        return database.delete("appointment","id=" + Long.toString(id),null);
+        return database.delete("appointment","id=" + id,null);
     }
 
 
@@ -384,7 +391,7 @@ public class WG4U_DataSource {
         values.put("hour",hour);
         values.put("minute",minute);
 
-        return database.update("appointment",values,"id = " + Long.toString(id),null);
+        return database.update("appointment",values,"id = " + id,null);
 
     }
 
@@ -425,8 +432,8 @@ public class WG4U_DataSource {
         //Append IDs for SQL Statement
         for (int i = 0; i < appointmenIDs.size(); i++){
 
-            if(i==0) sqlcond = "id = " + Long.toString(appointmenIDs.get(i));
-            else sqlcond = sqlcond + " OR id = " + Long.toString(appointmenIDs.get(i));
+            if(i==0) sqlcond = "id = " + appointmenIDs.get(i);
+            else sqlcond = sqlcond + " OR id = " + appointmenIDs.get(i);
 
         }
 

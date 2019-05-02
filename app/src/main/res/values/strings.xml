@@ -161,5 +161,6 @@
     <string name="appointment_Date">Date</string>
     <string name="delete">Delete</string>
     <string name="edit_appointment">Edit Task</string>
+    <string name="leaveWG">Leave WG</string>
 
 </resources>
