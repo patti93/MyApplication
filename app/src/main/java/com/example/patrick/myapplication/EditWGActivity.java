@@ -25,7 +25,6 @@ public class EditWGActivity extends AppCompatActivity {
         EditText inputCountry = findViewById(R.id.input_country);
         EditText inputDescription = findViewById(R.id.input_description);
 
-
         dataSource = new WG4U_DataSource(this);
         activeResident = new ActiveResident(this);
 
