@@ -240,6 +240,19 @@ public class WG4U_DataSource {
 
     }
 
+    public long updateWG(long wg_id,String street, String hnr,String zip,String town, String country, String description){
+
+        ContentValues values = new ContentValues();
+
+        values.put("street",street);
+        values.put("hnr",hnr);
+        values.put("zip",zip);
+        values.put("town",town);
+        values.put("country",country);
+        values.put("description",description);
+
+        return database.update("wgs",values,"id = " + wg_id,null);
+    }
 
     public Wg findResidentsWg(Resident resident){
 
