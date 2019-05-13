@@ -28,7 +28,7 @@ public class show_appointment extends AppCompatActivity {
 
         dataSource.open();
 
-        appointment = dataSource.getAppointmentsSearch("id =" + Long.toString(id)).get(0);
+        appointment = dataSource.getAppointmentsSearch("id =" + id).get(0);
 
         dataSource.close();
 
@@ -58,6 +58,8 @@ public class show_appointment extends AppCompatActivity {
         dataSource.open();
 
         long check = dataSource.deleteAppointment(appointment.getId());
+
+        dataSource.deleteHasAppointment(appointment.getId());
 
         dataSource.close();
 

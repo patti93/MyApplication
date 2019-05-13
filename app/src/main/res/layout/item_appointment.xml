@@ -19,12 +19,14 @@
             android:textSize="18dp"
             android:layout_marginLeft="4dp"
             android:id="@+id/appointmentListViewItemName"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:id="@+id/appointmentListViewItemDescription"
             android:textSize="12dp"/>
+
     </LinearLayout>
 
     <RelativeLayout
@@ -38,9 +40,8 @@
             android:id="@+id/timeTextView"
             android:layout_marginRight="4dp"
             android:layout_alignParentEnd="true"/>
+
     </RelativeLayout>
-
-
 
 </LinearLayout>
 

@@ -27,6 +27,10 @@ public class WG4U_DB_Helper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_TODO = "CREATE TABLE todo (id INTEGER PRIMARY KEY AUTOINCREMENT, todo_name TEXT)";
     private static final String SQL_CREATE_TABLE_HAS_TODO = "CREATE TABLE has_todo (wg_id INTEGER, todo_id INTEGER)";
 
+
+    private static final String SQL_CREATE_TABLE_JOURNAL_ENTRY = "CREATE TABLE journal_entry (id INTEGER PRIMARY KEY AUTOINCREMENT,sent_by VCHAR, message TEXT, date VCHAR, hour INT(2), minute INT(2))";
+    private static final String SQL_CREATE_TABLE_WG_JOURNAL = "CREATE TABLE wg_journal (wg_id INTEGER, journal_entry_id INTEGER)";
+
     private static  final String DB_NAME = "wg4u.db";
 
 
@@ -66,6 +70,12 @@ public class WG4U_DB_Helper extends SQLiteOpenHelper {
             db.execSQL(SQL_CREATE_TABLE_TODO);
             Log.d(LOG_TAG,"Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_HAS_TODO + " angelegt.");
             db.execSQL(SQL_CREATE_TABLE_HAS_TODO);
+
+            Log.d(LOG_TAG,"Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_JOURNAL_ENTRY + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_JOURNAL_ENTRY);
+            Log.d(LOG_TAG,"Die Tabelle wird mit SQL-Befehl: " + SQL_CREATE_TABLE_WG_JOURNAL + " angelegt.");
+            db.execSQL(SQL_CREATE_TABLE_WG_JOURNAL);
+
         }
         catch ( Exception e){
             Log.e(LOG_TAG,"Fehler beim anlegen einer Tabelle");

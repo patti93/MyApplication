@@ -31,6 +31,10 @@ public class WG4U_DataSource {
     private String [] todoColumns = {"id", "todo_name"};
     private String [] has_todoColumns = {"wg_id", "todo_id"};
 
+    private String [] journal_entryColumns = {"id","sent_by","message","date","hour","minute"};
+    private String [] wg_journalColumns = {"wg_id","journal_entry_id"};
+
+
     public WG4U_DataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new WG4U_DB_Helper(context);
@@ -423,6 +427,11 @@ public class WG4U_DataSource {
 
     }
 
+    public long deleteHasAppointment(Long appointment_id){
+
+        return database.delete("has_appointment","id = " + appointment_id,null);
+    }
+
 
         public List<Appointment> getWgAppointments(Wg wg,String date){
 
@@ -594,6 +603,107 @@ public class WG4U_DataSource {
 
         return resultIDs;
     }
+
+    //Journal Operations
+    public JournalEntry insertJournalEntry(String sent_by,String message, String date, int hour, int minute){
+
+        long insertID;
+
+        ContentValues values = new ContentValues();
+
+        values.put("sent_by",sent_by);
+        values.put("message",message);
+        values.put("date",date);
+        values.put("hour",hour);
+        values.put("minute",minute);
+
+        insertID = database.insert("journal_entry",null,values);
+
+        Cursor cursor = database.query("journal_entry",journal_entryColumns,"id = " + insertID,null,null,null,null);
+
+        cursor.moveToFirst();
+        JournalEntry journalEntry= cursorToJournalEntry(cursor);
+
+        Log.d(LOG_TAG,"Journaleintrag erstellt: " + journalEntry.toString() );
+
+        return journalEntry;
+    }
+
+    public JournalEntry cursorToJournalEntry(Cursor cursor){
+
+        long id = cursor.getLong(cursor.getColumnIndex("id"));
+        String sent_by = cursor.getString(cursor.getColumnIndex("sent_by"));
+        String message = cursor.getString(cursor.getColumnIndex("message"));
+        String date = cursor.getString(cursor.getColumnIndex("date"));
+        int hour = cursor.getInt(cursor.getColumnIndex("hour"));
+        int minute = cursor.getInt(cursor.getColumnIndex("minute"));
+
+        return new JournalEntry(id,sent_by,date,message,hour,minute);
+    }
+
+
+    public ArrayList<JournalEntry> getWGJournalEntries(Wg wg){
+
+        List<JournalEntry> journalEntryListResult = new ArrayList<>();
+        List<Long> journalEntryIDs = new ArrayList<>();
+
+        //returns a cursor containing all JournalEntry IDs for a certain WG
+        Cursor cursor = database.query("wg_journal",wg_journalColumns,"wg_id = " + wg.getId() ,null,null,null,null,null);
+
+        cursor.moveToFirst();
+
+        //create an ArrayList with all journalEntry IDs
+        while (!cursor.isAfterLast()){
+            journalEntryIDs.add(cursor.getLong(cursor.getColumnIndex("journal_entry_id")));
+            cursor.moveToNext();
+        }
+
+
+        return journalEntryListResult;
+
+
+    }
+
+    public ArrayList<JournalEntry> getJournalEntrySearch(String searchstring){
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+    public long associateJournalEntryToWG(Wg wg, JournalEntry journalEntry){
+
+        ContentValues values = new ContentValues();
+
+        values.put("wg_id", wg.getId());
+        values.put("journal_entry_id", journalEntry.getId());
+
+        return database.insert("wg_journal",null,values);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     // ToDo List Operations

@@ -15,6 +15,7 @@ public class EditWGActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_wg);
 
@@ -57,8 +58,6 @@ public class EditWGActivity extends AppCompatActivity {
         return etText.getText().toString().trim().length() <= 0;
     }
 
-
-
     private String[] getAddressInput(){
 
         String[] address = new String[5];
@@ -68,7 +67,6 @@ public class EditWGActivity extends AppCompatActivity {
         EditText inputTown = findViewById(R.id.input_town);
         EditText inputZip = findViewById(R.id.input_zip_code);
         EditText inputCountry = findViewById(R.id.input_country);
-        EditText inputDescription = findViewById(R.id.input_description);
 
         address[0] = inputStreet.getText().toString();
         address[1] =  inputHnr.getText().toString();
@@ -80,9 +78,7 @@ public class EditWGActivity extends AppCompatActivity {
 
     }
 
-
     public void onClickSafe(View view){
-
 
         EditText inputStreet = findViewById(R.id.input_wg_Street);
         EditText inputHnr = findViewById(R.id.input_wg_hnr);
