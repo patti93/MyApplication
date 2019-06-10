@@ -68,8 +68,6 @@ public class WG4U_DataSource {
 
     public int insertResident(String firstName, String lastName, String bday, String mail, String password){
 
-        //final Resident resident = new Resident(0,firstName,lastName,bday,mail,password);
-
         final JSONObject jsonResponse = new JSONObject();
 
         int check = 0;
@@ -79,15 +77,12 @@ public class WG4U_DataSource {
         final String paramMail = mail;
         final String paramPassword = password;
 
-        Resident resident;
-
-        //long insertID = database.insert("residents",null,values);
-
-
-        //Cursor cursor = database.query("residents",residentColumns,"id = " + insertID, null,null,null,null);
-
-        //cursor.moveToFirst();
-        //final Resident resident = cursorToResident(cursor);
+        /*Resident resident;
+        long insertID = database.insert("residents",null,values);
+        Cursor cursor = database.query("residents",residentColumns,"id = " + insertID, null,null,null,null);
+        cursor.moveToFirst();
+        Resident resident = cursorToResident(cursor);
+        */
 
         final RequestQueue queue = Volley.newRequestQueue(appcontext);
         String url_create_usr = "https://wg4u.dnsuser.de/create_user.php";
@@ -124,7 +119,7 @@ public class WG4U_DataSource {
             @Override
             protected Map<String, String> getParams()
             {
-                Map<String, String> values = new HashMap<String, String>();
+                Map<String, String> values = new HashMap<>();
                 values.put("firstName", paramfName);
                 values.put("lastName", paramlName);
                 values.put("bday", paramBday);
