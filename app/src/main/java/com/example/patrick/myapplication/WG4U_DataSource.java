@@ -5,10 +5,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.widget.Toast;
 
-import java.lang.reflect.Array;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class WG4U_DataSource {
 
@@ -34,10 +47,12 @@ public class WG4U_DataSource {
     private String [] journal_entryColumns = {"id","sent_by","message","date","hour","minute"};
     private String [] wg_journalColumns = {"wg_id","journal_entry_id"};
 
+    private Context appcontext;
 
     public WG4U_DataSource(Context context) {
         Log.d(LOG_TAG, "Unsere DataSource erzeugt jetzt den dbHelper.");
         dbHelper = new WG4U_DB_Helper(context);
+        appcontext = context;
     }
 
     public void open() {
@@ -51,23 +66,86 @@ public class WG4U_DataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public Resident insertResident(String firstname, String lastname, String birthday, String email, String password){
-        ContentValues values = new ContentValues();
-        values.put("firstName",firstname);
-        values.put("lastName",lastname);
-        values.put("bday",birthday);
-        values.put("email",email);
-        values.put("password",password);
+    public int insertResident(String firstName, String lastName, String bday, String mail, String password){
+
+        //final Resident resident = new Resident(0,firstName,lastName,bday,mail,password);
+
+        final JSONObject jsonResponse = new JSONObject();
+
+        int check = 0;
+        final String paramfName = firstName;
+        final String paramlName = lastName;
+        final String paramBday = bday;
+        final String paramMail = mail;
+        final String paramPassword = password;
+
+        Resident resident;
+
+        //long insertID = database.insert("residents",null,values);
 
 
-        long insertID = database.insert("residents",null,values);
+        //Cursor cursor = database.query("residents",residentColumns,"id = " + insertID, null,null,null,null);
 
-        Cursor cursor = database.query("residents",residentColumns,"id = " + insertID, null,null,null,null);
+        //cursor.moveToFirst();
+        //final Resident resident = cursorToResident(cursor);
 
-        cursor.moveToFirst();
-        Resident resident = cursorToResident(cursor);
+        final RequestQueue queue = Volley.newRequestQueue(appcontext);
+        String url_create_usr = "https://wg4u.dnsuser.de/create_user.php";
 
-        return resident;
+        StringRequest strRequest = new StringRequest(Request.Method.POST, url_create_usr,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        //Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                         try {
+                             JSONObject message = new JSONObject(response);
+                             Log.d(LOG_TAG,response);
+                             jsonResponse.put("status",message.getInt("success"));
+                             if(message.getInt("success") == 1) jsonResponse.put("id",message.getInt("id"));
+                             Toast.makeText(appcontext, message.getString("message"), Toast.LENGTH_LONG).show();
+                             queue.stop();
+                         } catch (JSONException e){
+                             Toast.makeText(appcontext, "json fehler", Toast.LENGTH_LONG).show();
+                             queue.stop();
+                         }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(appcontext, error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                })
+        {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> values = new HashMap<String, String>();
+                values.put("firstName", paramfName);
+                values.put("lastName", paramlName);
+                values.put("bday", paramBday);
+                values.put("email", paramMail);
+                values.put("password", paramPassword);
+                return values;
+            }
+        };
+
+
+        try {
+            if(jsonResponse.getInt("status") == 1){
+                check = 1;
+                Log.d(LOG_TAG,"user mit der ID:" + jsonResponse.getInt("id") + " angelegt");
+            }
+        } catch (JSONException e){
+            check = 0;
+        }
+        queue.add(strRequest);
+
+        return check;
     }
 
 
@@ -642,7 +720,7 @@ public class WG4U_DataSource {
     }
 
 
-    public ArrayList<JournalEntry> getWGJournalEntries(Wg wg){
+    public List<JournalEntry> getWGJournalEntries(Wg wg){
 
         List<JournalEntry> journalEntryListResult = new ArrayList<>();
         List<Long> journalEntryIDs = new ArrayList<>();
@@ -663,7 +741,7 @@ public class WG4U_DataSource {
 
 
     }
-
+/*
     public ArrayList<JournalEntry> getJournalEntrySearch(String searchstring){
 
 
@@ -673,7 +751,7 @@ public class WG4U_DataSource {
 
 
 
-    }
+    }*/
 
 
 

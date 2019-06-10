@@ -10,15 +10,15 @@ public class WG4U_DB_Helper extends SQLiteOpenHelper {
     private static final String LOG_TAG = WG4U_DB_Helper.class.getSimpleName();
     private static final int DB_VERSION = 1;
 
-    private static final String SQL_CREATE_TABLE_USERS = "CREATE TABLE residents (id INTEGER PRIMARY KEY AUTOINCREMENT,firstName VCHAR, lastName VCHAR, bday VCHAR, email VCHAR, password VCHAR)";
+    private static final String SQL_CREATE_TABLE_USERS = "CREATE TABLE residents (id INTEGER PRIMARY KEY AUTOINCREMENT,firstName VARCHAR(32), lastName VARCHAR(32), bday VARCHAR(32), email VARCHAR(32), password VARCHAR(32))";
 
-    private static final String SQL_CREATE_TABLE_WGS = "CREATE TABLE wgs (id INTEGER PRIMARY KEY AUTOINCREMENT, name VCHAR, street VCHAR, hnr VCHAR,zip VCHAR,town VCHAR, country VHCHAR, description TEXT, password VCHAR)";
+    private static final String SQL_CREATE_TABLE_WGS = "CREATE TABLE wgs (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(32), street VARCHAR(32), hnr VARCHAR(32),zip VARCHAR(32),town VARCHAR(32), country VHCHAR, description TEXT, password VARCHAR(32))";
     private static final String SQL_CREATE_TABLE_LIVES_IN = "CREATE TABLE lives_in (wg_id INTEGER, resident_id INTEGER PRIMARY KEY)";
 
-    private static final String SQL_CREATE_TABLE_TASK = "CREATE TABLE tasks (id INTEGER PRIMARY KEY AUTOINCREMENT,title VCHAR, description TEXT)";
+    private static final String SQL_CREATE_TABLE_TASK = "CREATE TABLE tasks (id INTEGER PRIMARY KEY AUTOINCREMENT,title VARCHAR(32), description TEXT)";
     private static final String SQL_CREATE_TABLE_HAS_TASK = "CREATE TABLE has_task (resident_id INTEGER, task_id INTEGER)";
 
-    private static final String SQL_CREATE_TABLE_APPOINTMENT = "CREATE TABLE appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, name VCHAR, date VCHAR, description TEXT,hour INT(2),minute INT(2))";
+    private static final String SQL_CREATE_TABLE_APPOINTMENT = "CREATE TABLE appointment (id INTEGER PRIMARY KEY AUTOINCREMENT, name VARCHAR(32), date VARCHAR(32), description TEXT,hour INT(2),minute INT(2))";
     private static final String SQL_CREATE_TABLE_HAS_APPOINTMENT = "CREATE TABLE has_appointment (wg_id INTEGER, appointment_id INTEGER)";
 
     private static final String SQL_CREATE_TABLE_SHOPPING_ITEM = "CREATE TABLE shopping_item (id INTEGER PRIMARY KEY AUTOINCREMENT, item_name TEXT)";
@@ -28,7 +28,7 @@ public class WG4U_DB_Helper extends SQLiteOpenHelper {
     private static final String SQL_CREATE_TABLE_HAS_TODO = "CREATE TABLE has_todo (wg_id INTEGER, todo_id INTEGER)";
 
 
-    private static final String SQL_CREATE_TABLE_JOURNAL_ENTRY = "CREATE TABLE journal_entry (id INTEGER PRIMARY KEY AUTOINCREMENT,sent_by VCHAR, message TEXT, date VCHAR, hour INT(2), minute INT(2))";
+    private static final String SQL_CREATE_TABLE_JOURNAL_ENTRY = "CREATE TABLE journal_entry (id INTEGER PRIMARY KEY AUTOINCREMENT,sent_by VARCHAR(32), message TEXT, date VARCHAR(32), hour INT(2), minute INT(2))";
     private static final String SQL_CREATE_TABLE_WG_JOURNAL = "CREATE TABLE wg_journal (wg_id INTEGER, journal_entry_id INTEGER)";
 
     private static  final String DB_NAME = "wg4u.db";
