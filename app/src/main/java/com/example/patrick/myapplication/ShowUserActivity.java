@@ -21,7 +21,7 @@ public class ShowUserActivity extends AppCompatActivity {
         name.setText(activeResident.getActiveResident().getLastName());
 
         TextView bday = findViewById(R.id.bdayTextView);
-        bday.setText(activeResident.getActiveResident().getBirthday());
+        bday.setText(activeResident.getActiveResident().getbday());
 
         TextView email = findViewById(R.id.mailTextView);
         email.setText(activeResident.getActiveResident().getEmail());

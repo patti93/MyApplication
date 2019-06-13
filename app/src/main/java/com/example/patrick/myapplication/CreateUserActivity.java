@@ -78,7 +78,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         else if (!bday_pattern.matcher(bday).matches()) return 5;
 
-        /*
+        /*insert User, local DB
         dataSource = new WG4U_DataSource(this);
 
         dataSource.open();

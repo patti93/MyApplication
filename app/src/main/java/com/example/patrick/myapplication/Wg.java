@@ -5,8 +5,8 @@ public class Wg {
     private long id;
 
     private String street;
-    private String  hnr;
-    private String  name;
+    private String hnr;
+    private String name;
     private String password;
     private String zipCode;
     private String country;

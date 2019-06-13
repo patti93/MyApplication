@@ -6,14 +6,14 @@ public class Resident {
     private String firstName;
     private String lastName;
     private String email;
-    private String birthday;
+    private String bday;
     private String password;
 
 
-    public Resident (long id,String firstName, String lastName, String birthday, String email, String password){
+    public Resident (long id,String firstName, String lastName, String bday, String email, String password){
 
         this.id = id;
-        this.birthday = birthday;
+        this.bday = bday;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -44,12 +44,12 @@ public class Resident {
         this.password = password;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getbday() {
+        return bday;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setbday(String bday) {
+        this.bday = bday;
     }
 
     public String getEmail() {
@@ -75,7 +75,7 @@ public class Resident {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", birthday='" + birthday + '\'' +
+                ", bday='" + bday + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

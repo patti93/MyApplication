@@ -45,12 +45,36 @@ public class VolleyHelper {
                 return params;
             }
         };
-
         //RequestQueue queue =  Volley.newRequestQueue(context);
 
         //queue.add(stringRequest);
         // Access the RequestQueue through singleton class.
          VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
-        }
+    }
+
+    public static void makeStringRequestGET(Context context, String url,final VolleyResponseListener listener ){
+
+        StringRequest stringRequest = new StringRequest
+                (Request.Method.GET, url, new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        listener.onResponse(response);
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        listener.onError(error.toString());
+                    }
+                }) {
+        };
+
+        VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
+
+
+
+
+    }
 
 }

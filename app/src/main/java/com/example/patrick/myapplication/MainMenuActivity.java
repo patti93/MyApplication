@@ -18,6 +18,7 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        /*
         dataSource = new WG4U_DataSource(this);
         dataSource.open();
         activeResident = new ActiveResident(this);
@@ -26,11 +27,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
         if(wgName.equals(null)){
-            dataSource.close();
+            //dataSource.close();
             Intent intent = new Intent(this,NoWGActivity.class);
             startActivity(intent);
             finish();
         }
+        */
         TextView wgTextView = findViewById(R.id.wg_name);
         wgTextView.setText(wgName);
         wgTextView.setTextSize(32);

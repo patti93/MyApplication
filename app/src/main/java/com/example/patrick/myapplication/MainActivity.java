@@ -8,8 +8,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -62,10 +71,63 @@ public class MainActivity extends AppCompatActivity {
 
         EditText inputUser = findViewById(R.id.editTextUser);
         EditText inputPassword = findViewById(R.id.editTextPassword);
-        ActiveResident activeResident = new ActiveResident(this);
+        final ActiveResident activeResident = new ActiveResident(this);
         String email = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
+
+        Map<String,String> params = new HashMap<>();
+        params.put("email",email);
+        params.put("password",password);
+
+        VolleyHelper volleyHelper = new VolleyHelper();
+
+        VolleyHelper.makeStringRequestPOST(getApplicationContext(), "https://wg4u.dnsuser.de/login.php", params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Log.d(LOG_TAG,message);
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(LOG_TAG,response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    //JSONObject jsonObject = new JSONObject(response);
+                    //1 = succes, no WG membership
+                    //O = wrong password
+                    //2 = unknown user
+                    //3 = success and WG member
+                    if(jsonArray.getJSONObject(0).getInt("status") == 1) {
+                        Gson gson = new Gson();
+                        Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
+                        activeResident.setActiveResident(resident);
+                        Intent intent = new Intent(getApplicationContext(), NoWGActivity.class);
+                        startActivity(intent);
+                    } else if(jsonArray.getJSONObject(0).getInt("status") == 0){
+                        Toast.makeText(getApplicationContext(),"Falsches Passwort",Toast.LENGTH_LONG).show();
+                    }
+                    else if(jsonArray.getJSONObject(0).getInt("status") == 2){
+                        Toast.makeText(getApplicationContext(),"Benutzer unbekannt",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Gson gson = new Gson();
+                        Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
+                        activeResident.setActiveResident(resident);
+                        Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
+                        startActivity(intent);
+                    }
+
+                } catch (JSONException e){
+
+                }
+            }
+        });
+
+
+
+        /* Login with local Database
         if (checkuser(email, password)) {
 
             dataSource = new WG4U_DataSource(this);
@@ -83,23 +145,12 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else Toast.makeText(MainActivity.this, R.string.wrong_login,Toast.LENGTH_LONG).show();
+        */
     }
 
     public void signUpRedirect(View view){
         Intent intent = new Intent(this,CreateUserActivity.class);
         startActivity(intent);
-    }
-    public boolean hasWG(String email){
-
-        dataSource = new WG4U_DataSource(this);
-        dataSource.open();
-
-        List<Resident> residentList = new ArrayList<>();
-
-        residentList = dataSource.getResidentsSearch("email = " + "'" + email + "'");
-
-
-        return false;
     }
 
 }
