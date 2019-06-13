@@ -13,15 +13,62 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
+/*
+  //link to php script
+ String url = "https://wg4u.dnsuser.de/XXXX.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(LOG_TAG,response);
+                        queue.stop();
+                        //handle response here
+                        //try to create a JSONObject from the response
+                        try {
+
+                            JSONObject temp = new JSONObject(response);
+
+                        }catch (JSONException e){
+                            Toast.makeText(appcontext, e.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(LOG_TAG,e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //stop request queue and show error
+                        queue.stop();
+                        Toast.makeText(appcontext, error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d(LOG_TAG,error.toString);
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String> values = new HashMap<>();
+                //add POST parameters here, values.put
+                return values;
+            }
+
+        };
+
+        queue.add(stringRequest);
+ */
 
 public class WG4U_DataSource {
 
@@ -66,11 +113,11 @@ public class WG4U_DataSource {
         Log.d(LOG_TAG, "Datenbank mit Hilfe des DbHelpers geschlossen.");
     }
 
-    public int insertResident(String firstName, String lastName, String bday, String mail, String password){
+    public boolean insertResident(String firstName, String lastName, String bday, String mail, String password){
 
         final JSONObject jsonResponse = new JSONObject();
 
-        int check = 0;
+        boolean check = false;
         final String paramfName = firstName;
         final String paramlName = lastName;
         final String paramBday = bday;
@@ -103,6 +150,7 @@ public class WG4U_DataSource {
                              queue.stop();
                          } catch (JSONException e){
                              Toast.makeText(appcontext, "json fehler", Toast.LENGTH_LONG).show();
+                             Log.d(LOG_TAG,response);
                              queue.stop();
                          }
                     }
@@ -128,29 +176,104 @@ public class WG4U_DataSource {
                 return values;
             }
         };
-
-
+        queue.add(strRequest);
+        //evaluate the response
         try {
             if(jsonResponse.getInt("status") == 1){
-                check = 1;
+                check = true;
                 Log.d(LOG_TAG,"user mit der ID:" + jsonResponse.getInt("id") + " angelegt");
             }
         } catch (JSONException e){
-            check = 0;
+            check = false;
         }
-        queue.add(strRequest);
-
         return check;
     }
 
+
+    public JSONArray postRequest(String url, final Map<String,String> params){
+
+        RequestQueue queue = Volley.newRequestQueue(appcontext);
+        final JSONArray ret = new JSONArray();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d(LOG_TAG,response);
+                        //try to create a JSONArray from the response and store them in return JSONArray
+                        try {
+                            JSONArray temp = new JSONArray(response);
+                            for(int i = 0; i < temp.length(); i++){
+                                ret.put(temp.getJSONObject(i));
+                            }
+
+                        }catch (JSONException e){
+                            Toast.makeText(appcontext, e.getMessage(), Toast.LENGTH_LONG).show();
+                            Log.d(LOG_TAG,e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(appcontext,error.getMessage(),Toast.LENGTH_LONG).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+
+                return params;
+            }
+
+        };
+
+
+        queue.add(stringRequest);
+
+
+        return ret;
+
+    }
 
     //Resident operations
 
     //returns a list of residents where the searchString applies
     public List<Resident> getResidentsSearch(String searchString){
 
-        List<Resident> residentList = new ArrayList<>();
+        final List<Resident> residentList = new ArrayList<>();
+        String url = "https://wg4u.dnsuser.de/get_user.php";
+        Map<String,String> params = new HashMap<>();
 
+        params.put("searchString",searchString);
+
+        VolleyHelper volleyHelper = new VolleyHelper();
+
+        VolleyHelper.makeStringRequestPOST(appcontext, url, params, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Log.d(LOG_TAG,message);
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(LOG_TAG,response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    Gson gson = new Gson();
+                    Resident temp;
+                    for(int i = 0; i < jsonArray.length(); i++){
+                        temp = gson.fromJson(jsonArray.getString(i),Resident.class);
+                        residentList.add(temp);
+                    }
+                }catch (JSONException e){
+
+                }
+
+            }
+        });
+
+        /*
         Cursor cursor = database.query("residents",residentColumns,searchString,null,null,null, null);
 
         cursor.moveToFirst();
@@ -165,6 +288,9 @@ public class WG4U_DataSource {
         }
         cursor.close();
         Log.d(LOG_TAG,Integer.toString(residentList.size()));
+*/
+        Log.d(LOG_TAG,residentList.toString());
+
 
         return residentList;
 
