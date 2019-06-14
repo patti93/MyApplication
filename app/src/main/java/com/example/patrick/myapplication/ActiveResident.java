@@ -35,6 +35,14 @@ public class ActiveResident {
         editor = pref.edit();
     }
 
+    public void setLoggedIn(){
+        editor.putBoolean(KEY_IS_LOGIN,true);
+        editor.commit();
+    }
+
+    public boolean isLoggedIn(){
+        return pref.getBoolean(KEY_IS_LOGIN,false);
+    }
 
     public void setActiveResident(Resident resident){
 

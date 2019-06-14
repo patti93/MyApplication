@@ -9,6 +9,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.List;
 
 public class WgLoginActivity extends AppCompatActivity {
@@ -30,6 +33,54 @@ public class WgLoginActivity extends AppCompatActivity {
 
     public void onClickJoin(View view){
 
+        EditText inputPassword = findViewById(R.id.input_wg_Login);
+        String password = inputPassword.getText().toString();
+
+        VolleyHelper volleyHelper = new VolleyHelper();
+
+        ActiveResident activeResident = new ActiveResident(getApplicationContext());
+        Resident resident = activeResident.getActiveResident();
+        int id = (int)resident.getId();
+
+        String idString = Integer.toString(id);
+
+        String url = "https://wg4u.dnsuser.de/wglogin.php?wgname=" + wgName + "&password=" + password + "&userid=" + idString;
+
+
+        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(LOG_TAG,response);
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+
+                    if(jsonArray.getJSONObject(0).getInt("status") == 1){
+
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        //kills all previous activities and direct to main menu
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+
+                    else if(jsonArray.getJSONObject(0).getInt("status") == -1){
+                        Toast.makeText(getApplicationContext(),R.string.check_password,Toast.LENGTH_LONG);
+                    }
+
+
+                } catch (JSONException e){
+                    Log.d(LOG_TAG,e.getMessage());
+                }
+
+            }
+        });
+
+
+/*
         dataSource = new WG4U_DataSource(this);
         dataSource.open();
 
@@ -55,7 +106,7 @@ public class WgLoginActivity extends AppCompatActivity {
             Toast.makeText(WgLoginActivity.this,R.string.check_password,Toast.LENGTH_SHORT).show();
             dataSource.close();
         }
-
+    */
     }
 
 }

@@ -43,11 +43,10 @@ if(checkInput()) {
     Map<String, String> params = new HashMap<>();
     //address
     params.put("name", wgData[0]);
-    //Log.d(LOG_TAG,wgData[0]);
     params.put("street", address[0]);
     params.put("hnr", address[1]);
-    params.put("zip", address[2]);
-    params.put("town", address[3]);
+    params.put("town", address[2]);
+    params.put("zip", address[3]);
     params.put("country", address[4]);
     params.put("description", wgData[2]);
     params.put("password", wgData[1]);
@@ -83,8 +82,6 @@ if(checkInput()) {
             } catch (JSONException e) {
                 Log.d(LOG_TAG, e.getMessage());
             }
-
-
         }
     });
 
@@ -121,6 +118,7 @@ if(checkInput()) {
     }
 
     private String[] getWgDetails(){
+
         String[] wgInput = new String[3];
 
         EditText inputName = findViewById(R.id.input_wg_name);

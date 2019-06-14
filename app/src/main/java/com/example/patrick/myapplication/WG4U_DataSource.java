@@ -26,49 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-/*
-  //link to php script
- String url = "https://wg4u.dnsuser.de/XXXX.php";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.d(LOG_TAG,response);
-                        queue.stop();
-                        //handle response here
-                        //try to create a JSONObject from the response
-                        try {
-
-                            JSONObject temp = new JSONObject(response);
-
-                        }catch (JSONException e){
-                            Toast.makeText(appcontext, e.getMessage(), Toast.LENGTH_LONG).show();
-                            Log.d(LOG_TAG,e.getMessage());
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //stop request queue and show error
-                        queue.stop();
-                        Toast.makeText(appcontext, error.toString(), Toast.LENGTH_SHORT).show();
-                        Log.d(LOG_TAG,error.toString);
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String> values = new HashMap<>();
-                //add POST parameters here, values.put
-                return values;
-            }
-
-        };
-
-        queue.add(stringRequest);
- */
 
 public class WG4U_DataSource {
 

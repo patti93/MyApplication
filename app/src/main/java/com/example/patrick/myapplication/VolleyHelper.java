@@ -72,9 +72,6 @@ public class VolleyHelper {
 
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
 
-
-
-
     }
 
 }

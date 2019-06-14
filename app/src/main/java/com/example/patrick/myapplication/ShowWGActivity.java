@@ -10,6 +10,7 @@ public class ShowWGActivity extends AppCompatActivity {
 
     WG4U_DataSource dataSource;
     ActiveResident activeResident;
+    ActiveWG activeWG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,39 +21,34 @@ public class ShowWGActivity extends AppCompatActivity {
         String description;
         String password;
 
-
-        dataSource = new WG4U_DataSource(this);
-        dataSource.open();
         activeResident = new ActiveResident(this);
-
+        activeWG = new ActiveWG(this);
 
 
         TextView textView_wg_name = findViewById(R.id.print_wg_name);
-        wgName = dataSource.findResidentsWg(activeResident.getActiveResident()).getName()+"\n";
+        wgName = activeWG.getActiveWG().getName()+"\n";
         textView_wg_name.setText(wgName);
 
 
         TextView textView_address = findViewById(R.id.print_address);
-        address =   dataSource.findResidentsWg(activeResident.getActiveResident()).getStreet() +
+        address =   activeWG.getActiveWG().getStreet() +
                     " " +
-                    dataSource.findResidentsWg(activeResident.getActiveResident()).getHnr() +
+                    activeWG.getActiveWG().getHnr() +
                     " \n" +
-                    dataSource.findResidentsWg(activeResident.getActiveResident()).getZipCode() +
+                    activeWG.getActiveWG().getZipCode() +
                     " " +
-                    dataSource.findResidentsWg(activeResident.getActiveResident()).getTown() +
+                    activeWG.getActiveWG().getTown() +
                     " \n" +
-                    dataSource.findResidentsWg(activeResident.getActiveResident()).getCountry() +
+                    activeWG.getActiveWG().getCountry() +
                     "\n";
         textView_address.setText(address);
 
         TextView textView_description = findViewById(R.id.print_description);
-        description =   dataSource.findResidentsWg(activeResident.getActiveResident()).getDescription() +
+        description =   activeWG.getActiveWG().getDescription() +
                         "\n";
         textView_description.setText(description);
 
-        TextView textView_wg_password = findViewById(R.id.print_password);
-        password = dataSource.findResidentsWg(activeResident.getActiveResident()).getPassword();
-        textView_wg_password.setText(password);
+
     }
 
     public void onClickLeaveWG(View view){
@@ -90,37 +86,32 @@ public class ShowWGActivity extends AppCompatActivity {
         String password;
 
 
-        dataSource = new WG4U_DataSource(this);
-        dataSource.open();
         activeResident = new ActiveResident(this);
-
+        activeWG = new ActiveWG(this);
 
 
         TextView textView_wg_name = findViewById(R.id.print_wg_name);
-        wgName = dataSource.findResidentsWg(activeResident.getActiveResident()).getName()+"\n";
+        wgName = activeWG.getActiveWG().getName()+"\n";
         textView_wg_name.setText(wgName);
 
 
         TextView textView_address = findViewById(R.id.print_address);
-        address =   dataSource.findResidentsWg(activeResident.getActiveResident()).getStreet() +
+        address =   activeWG.getActiveWG().getStreet() +
                 " " +
-                dataSource.findResidentsWg(activeResident.getActiveResident()).getHnr() +
+                activeWG.getActiveWG().getHnr() +
                 " \n" +
-                dataSource.findResidentsWg(activeResident.getActiveResident()).getZipCode() +
+                activeWG.getActiveWG().getZipCode() +
                 " " +
-                dataSource.findResidentsWg(activeResident.getActiveResident()).getTown() +
+                activeWG.getActiveWG().getTown() +
                 " \n" +
-                dataSource.findResidentsWg(activeResident.getActiveResident()).getCountry() +
+                activeWG.getActiveWG().getCountry() +
                 "\n";
         textView_address.setText(address);
 
         TextView textView_description = findViewById(R.id.print_description);
-        description =   dataSource.findResidentsWg(activeResident.getActiveResident()).getDescription() +
+        description =   activeWG.getActiveWG().getDescription() +
                 "\n";
         textView_description.setText(description);
 
-        TextView textView_wg_password = findViewById(R.id.print_password);
-        password = dataSource.findResidentsWg(activeResident.getActiveResident()).getPassword();
-        textView_wg_password.setText(password);
     }
 }

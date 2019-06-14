@@ -12,6 +12,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     String wgName;
     ActiveResident activeResident;
+    ActiveWG activeWG;
     WG4U_DataSource dataSource;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class MainMenuActivity extends AppCompatActivity {
             finish();
         }
         */
+        activeWG = new ActiveWG(getApplicationContext());
+        wgName = activeWG.getActiveWG().getName();
         TextView wgTextView = findViewById(R.id.wg_name);
         wgTextView.setText(wgName);
         wgTextView.setTextSize(32);

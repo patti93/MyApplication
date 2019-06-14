@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         EditText inputUser = findViewById(R.id.editTextUser);
         EditText inputPassword = findViewById(R.id.editTextPassword);
         final ActiveResident activeResident = new ActiveResident(this);
+        final ActiveWG activeWG = new ActiveWG((this));
         String email = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         Gson gson = new Gson();
                         Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
                         activeResident.setActiveResident(resident);
+                        activeResident.setLoggedIn();
                         Intent intent = new Intent(getApplicationContext(), NoWGActivity.class);
                         startActivity(intent);
                     } else if(jsonArray.getJSONObject(0).getInt("status") == 0){
@@ -116,6 +118,9 @@ public class MainActivity extends AppCompatActivity {
                     else if(jsonArray.getJSONObject(0).getInt("status") == 3) {
                         Gson gson = new Gson();
                         Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
+                        Wg wg = gson.fromJson(jsonArray.getString(2),Wg.class);
+                        activeWG.setActiveWG(wg);
+                        activeResident.setLoggedIn();
                         activeResident.setActiveResident(resident);
                         Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
                         startActivity(intent);
