@@ -8,9 +8,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class FoundWG2Activity extends AppCompatActivity {
 
-    String[] adress;
+    String[] address;
     String[] wgData;
     private static final String LOG_TAG = FoundWG2Activity.class.getSimpleName();
     @Override
@@ -18,7 +25,7 @@ public class FoundWG2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_found_wg2);
         Intent intent = getIntent();
-        adress = intent.getStringArrayExtra("wg_data");
+        address = intent.getStringArrayExtra("wg_data");
     }
 
     private boolean isEmpty(EditText etText) {
@@ -27,7 +34,62 @@ public class FoundWG2Activity extends AppCompatActivity {
 
     public void redirectMain(View view){
 
+        wgData = getWgDetails();
 
+        //put POST params
+if(checkInput()) {
+
+
+    Map<String, String> params = new HashMap<>();
+    //address
+    params.put("name", wgData[0]);
+    //Log.d(LOG_TAG,wgData[0]);
+    params.put("street", address[0]);
+    params.put("hnr", address[1]);
+    params.put("zip", address[2]);
+    params.put("town", address[3]);
+    params.put("country", address[4]);
+    params.put("description", wgData[2]);
+    params.put("password", wgData[1]);
+
+    String url = "https://wg4u.dnsuser.de/insert_wg.php";
+
+    VolleyHelper volleyHelper = new VolleyHelper();
+
+    VolleyHelper.makeStringRequestPOST(this, url, params, new VolleyResponseListener() {
+        @Override
+        public void onError(String message) {
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onResponse(String response) {
+            Log.d(LOG_TAG, response);
+            try {
+                JSONObject jsonObject = new JSONObject(response);
+                if (jsonObject.getInt("success") == 1) {
+
+                    Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
+                    //kills all previous activities
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+
+                } else if(jsonObject.getInt("success") == 0){
+
+                    Toast.makeText(FoundWG2Activity.this, R.string.wg_exists, Toast.LENGTH_SHORT).show();
+
+                }
+
+            } catch (JSONException e) {
+                Log.d(LOG_TAG, e.getMessage());
+            }
+
+
+        }
+    });
+
+}
+/* local login
         ActiveResident resident = new ActiveResident(this);
         WG4U_DataSource dataSource = new WG4U_DataSource(this);
         dataSource.open();
@@ -37,6 +99,8 @@ public class FoundWG2Activity extends AppCompatActivity {
         if(checkInput()){
             //check if there is already a wg with that name
             if (dataSource.getWGsSearch("name = '" + wgData[0] + "'").size() == 0) {
+
+
                 Wg wg = dataSource.insertWg(wgData[0], adress[0], adress[1], adress[2], adress[3], adress[4], wgData[2], wgData[1]);
                 dataSource.associateWgToResident(wg,resident.getActiveResident());
                 Log.d(LOG_TAG,"Bewohner:" + resident.getActiveResident().getEmail() + " ist in: " + wg.getName() + " eingezogen!");
@@ -52,6 +116,8 @@ public class FoundWG2Activity extends AppCompatActivity {
 
         dataSource.getAllWGs();
         dataSource.close();
+
+        */
     }
 
     private String[] getWgDetails(){

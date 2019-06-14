@@ -94,11 +94,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(LOG_TAG,response);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-                    //JSONObject jsonObject = new JSONObject(response);
-                    //1 = succes, no WG membership
-                    //O = wrong password
-                    //2 = unknown user
-                    //3 = success and WG member
+                    /*
+                    Response is a JSONArray with 2 Objects. at 0 an object which contains the status and at 1 a resident to set the active resident
+                    O = wrong password
+                    1 = succes, no WG membership
+                    2 = unknown user
+                    3 = success and WG member
+                    */
                     if(jsonArray.getJSONObject(0).getInt("status") == 1) {
                         Gson gson = new Gson();
                         Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     else if(jsonArray.getJSONObject(0).getInt("status") == 2){
                         Toast.makeText(getApplicationContext(),"Benutzer unbekannt",Toast.LENGTH_LONG).show();
                     }
-                    else {
+                    else if(jsonArray.getJSONObject(0).getInt("status") == 3) {
                         Gson gson = new Gson();
                         Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
                         activeResident.setActiveResident(resident);
@@ -120,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 } catch (JSONException e){
-
+                    Log.d(LOG_TAG,e.getMessage());
                 }
             }
         });
