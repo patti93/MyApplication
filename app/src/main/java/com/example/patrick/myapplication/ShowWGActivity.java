@@ -3,8 +3,13 @@ package com.example.patrick.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ShowWGActivity extends AppCompatActivity {
 
@@ -35,7 +40,7 @@ public class ShowWGActivity extends AppCompatActivity {
                     " " +
                     activeWG.getActiveWG().getHnr() +
                     " \n" +
-                    activeWG.getActiveWG().getZipCode() +
+                    activeWG.getActiveWG().getzip() +
                     " " +
                     activeWG.getActiveWG().getTown() +
                     " \n" +
@@ -52,7 +57,7 @@ public class ShowWGActivity extends AppCompatActivity {
     }
 
     public void onClickLeaveWG(View view){
-
+/*
         dataSource = new WG4U_DataSource(this);
         activeResident = new ActiveResident(this);
 
@@ -65,6 +70,38 @@ public class ShowWGActivity extends AppCompatActivity {
         Intent intent = new Intent(this,NoWGActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+  */
+        String userid = Long.toString(activeResident.getActiveResident().getId());
+
+        String url = "https://wg4u.dnsuser.de/leave_wg.php?userid=" + userid;
+
+        VolleyHelper volleyHelper = new VolleyHelper();
+
+        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    if(jsonObject.getInt("status") == 1){
+
+                        activeWG.unsetActiveWG();
+                        Intent intent = new Intent(getApplicationContext(),NoWGActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+
+                    } else Toast.makeText(getApplicationContext(),R.string.check_input,Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e){
+                    Log.d("INFO",e.getMessage());
+                }
+            }
+        });
+
     }
 
     public void onClickEditWG(View view){
@@ -100,7 +137,7 @@ public class ShowWGActivity extends AppCompatActivity {
                 " " +
                 activeWG.getActiveWG().getHnr() +
                 " \n" +
-                activeWG.getActiveWG().getZipCode() +
+                activeWG.getActiveWG().getzip() +
                 " " +
                 activeWG.getActiveWG().getTown() +
                 " \n" +

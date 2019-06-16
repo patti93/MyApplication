@@ -38,12 +38,19 @@ public class ActiveWG {
         editor.putString(KEY_NAME,wg.getName());
         editor.putString(KEY_STREET,wg.getStreet());
         editor.putString(KEY_HNR,wg.getHnr());
-        editor.putString(KEY_ZIP,wg.getZipCode());
+        editor.putString(KEY_ZIP,wg.getzip());
         editor.putString(KEY_TOWN,wg.getTown());
         editor.putString(KEY_COUNTRY,wg.getCountry());
         editor.putString(KEY_DESCRIPTION,wg.getDescription());
         editor.putString(KEY_PASSWORD,wg.getPassword());
 
+        editor.commit();
+
+    }
+
+    public void unsetActiveWG(){
+
+        editor.clear();
         editor.commit();
 
     }

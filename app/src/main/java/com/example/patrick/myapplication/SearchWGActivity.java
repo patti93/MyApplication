@@ -36,7 +36,7 @@ public class SearchWGActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        VolleyHelper.makeStringRequestGET(getApplicationContext(), "https://wg4u.dnsuser.de/find_wg.php?wgname=" + wgSearchString, new VolleyResponseListener() {
+        VolleyHelper.makeStringRequestGET(this, "https://wg4u.dnsuser.de/find_wg.php?wgname=" + wgSearchString, new VolleyResponseListener() {
             @Override
             public void onError(String message) {
                 Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();

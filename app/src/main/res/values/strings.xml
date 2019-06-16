@@ -162,5 +162,7 @@
     <string name="delete">Delete</string>
     <string name="edit_appointment">Edit Task</string>
     <string name="leaveWG">Leave WG</string>
+    <string name="check_input">Error, check the input</string>
+    <string name="error_delete">Error while deleting entry</string>
 
 </resources>

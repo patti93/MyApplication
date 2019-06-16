@@ -73,4 +73,6 @@
     <string name="delete">Löschen</string>
     <string name="edit_appointment">Termin bearbeiten</string>
     <string name="leaveWG">WG verlassen</string>
+    <string name="check_input">Fehler, überprüfe dein Eingaben</string>
+    <string name="error_delete">Fehler beim Löschen des Eintrags</string>
 </resources>

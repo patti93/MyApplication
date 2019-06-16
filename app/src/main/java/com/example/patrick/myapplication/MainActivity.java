@@ -71,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         EditText inputUser = findViewById(R.id.editTextUser);
         EditText inputPassword = findViewById(R.id.editTextPassword);
-        final ActiveResident activeResident = new ActiveResident(this);
-        final ActiveWG activeWG = new ActiveWG((this));
+        final ActiveResident activeResident = new ActiveResident(getApplicationContext());
+        final ActiveWG activeWG = new ActiveWG((getApplicationContext()));
         String email = inputUser.getText().toString();
         String password = inputPassword.getText().toString();
 
@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        VolleyHelper.makeStringRequestPOST(getApplicationContext(), "https://wg4u.dnsuser.de/login.php", params, new VolleyResponseListener() {
+        VolleyHelper.makeStringRequestPOST(this, "https://wg4u.dnsuser.de/login.php", params, new VolleyResponseListener() {
             @Override
             public void onError(String message) {
                 Log.d(LOG_TAG,message);
@@ -109,11 +109,12 @@ public class MainActivity extends AppCompatActivity {
                         activeResident.setLoggedIn();
                         Intent intent = new Intent(getApplicationContext(), NoWGActivity.class);
                         startActivity(intent);
+
                     } else if(jsonArray.getJSONObject(0).getInt("status") == 0){
-                        Toast.makeText(getApplicationContext(),"Falsches Passwort",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),R.string.wrong_login,Toast.LENGTH_LONG).show();
                     }
                     else if(jsonArray.getJSONObject(0).getInt("status") == 2){
-                        Toast.makeText(getApplicationContext(),"Benutzer unbekannt",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),R.string.wrong_login,Toast.LENGTH_LONG).show();
                     }
                     else if(jsonArray.getJSONObject(0).getInt("status") == 3) {
                         Gson gson = new Gson();
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         activeResident.setActiveResident(resident);
                         Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
                         startActivity(intent);
+
                     }
 
                 } catch (JSONException e){

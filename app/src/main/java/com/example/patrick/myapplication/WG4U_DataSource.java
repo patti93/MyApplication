@@ -592,7 +592,7 @@ public class WG4U_DataSource {
 
         public List<Appointment> getWgAppointments(Wg wg,String date){
 
-            String sqlcond = "";
+        String sqlcond = "";
 
         List<Appointment> appointmentListTemp = new ArrayList<>();
         List<Appointment> appointmentListResult = new ArrayList<>();

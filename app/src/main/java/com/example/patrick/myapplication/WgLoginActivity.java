@@ -9,8 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class WgLoginActivity extends AppCompatActivity {
     WG4U_DataSource dataSource;
     String wgName;
     ActiveResident activeResident;
+    ActiveWG activeWG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +42,7 @@ public class WgLoginActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        ActiveResident activeResident = new ActiveResident(getApplicationContext());
+        final ActiveResident activeResident = new ActiveResident(getApplicationContext());
         Resident resident = activeResident.getActiveResident();
         int id = (int)resident.getId();
 
@@ -61,14 +65,19 @@ public class WgLoginActivity extends AppCompatActivity {
 
                     if(jsonArray.getJSONObject(0).getInt("status") == 1){
 
-                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        Gson gson = new Gson();
+                        Wg wg = gson.fromJson(jsonArray.getString(1),Wg.class);
+                        activeWG = new ActiveWG(getApplicationContext());
+                        activeWG.setActiveWG(wg);
+                        Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
                         //kills all previous activities and direct to main menu
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
+
                     }
 
                     else if(jsonArray.getJSONObject(0).getInt("status") == -1){
-                        Toast.makeText(getApplicationContext(),R.string.check_password,Toast.LENGTH_LONG);
+                        Toast.makeText(getApplicationContext(),R.string.check_password,Toast.LENGTH_LONG).show();
                     }
 
 

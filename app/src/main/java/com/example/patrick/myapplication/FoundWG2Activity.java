@@ -75,7 +75,7 @@ if(checkInput()) {
 
                 } else if(jsonObject.getInt("success") == 0){
 
-                    Toast.makeText(FoundWG2Activity.this, R.string.wg_exists, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.wg_exists, Toast.LENGTH_SHORT).show();
 
                 }
 

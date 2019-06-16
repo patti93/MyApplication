@@ -17,6 +17,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class EditAppointmentActivity extends AppCompatActivity {
@@ -28,7 +30,13 @@ public class EditAppointmentActivity extends AppCompatActivity {
     int hourIn = 0;
     int minutesIn = 0;
 
-    String date;
+    String date, appointmenName, description;
+
+    int oldHour;
+
+    int oldMinute;
+
+    Long id;
 
     WG4U_DataSource dataSource;
 
@@ -36,7 +44,6 @@ public class EditAppointmentActivity extends AppCompatActivity {
 
     Appointment appointment;
 
-    long id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,20 +61,29 @@ public class EditAppointmentActivity extends AppCompatActivity {
 
         id = intent.getLongExtra("id",0);
 
+        appointmenName = intent.getStringExtra("name");
+
+        description = intent.getStringExtra("description");
+
+        date = intent.getStringExtra("date");
+
+        oldHour = intent.getIntExtra("hour",0);
+
+        oldMinute = intent.getIntExtra("minute",0);
+/*
         dataSource = new WG4U_DataSource(this);
 
         dataSource.open();
 
         appointment = dataSource.getAppointmentsSearch("id = " + id).get(0);
+*/
+        name.setText(appointmenName);
 
-        name.setText(appointment.getName());
-
-        note.setText(appointment.getDescription());
+        note.setText(description);
 
 
-        date = appointment.getDate();
 
-        dataSource.close();
+  //      dataSource.close();
 
     }
 
@@ -96,13 +112,34 @@ public class EditAppointmentActivity extends AppCompatActivity {
             dataSource.associateAppointmentToWG(wg,appointment);
             dataSource.close();
             */
-            dataSource.open();
 
-            dataSource.updateAppointment(id,name,date,description,hourIn,minutesIn);
+            Map<String,String> params = new HashMap<>();
 
-            dataSource.close();
+            params.put("name",name);
+            params.put("id",Long.toString(id));
+            params.put("description",description);
+            params.put("date",date);
+            params.put("hour",Integer.toString(hourIn));
+            params.put("minute",Integer.toString(minutesIn));
 
-            finish();
+            String url = "https://wg4u.dnsuser.de/update_appointment.php";
+
+            VolleyHelper volleyHelper = new VolleyHelper();
+
+            VolleyHelper.makeStringRequestPOST(getApplicationContext(), url, params, new VolleyResponseListener() {
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("INFO",response);
+                    if(response.equals("success")) finish();
+                    else Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
 
     }
@@ -136,7 +173,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
         //current appointment date
         String[] dateString = new String[3];
 
-        dateString = appointment.getDate().split("\\.");
+        dateString = date.split("\\.");
 
         int day = Integer.parseInt(dateString[0]);
         int month = Integer.parseInt(dateString[1]);
@@ -166,7 +203,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
         int minute = now.get(java.util.Calendar.MINUTE);
         */
 
-        TimePickerDialog timePickerDialog = new TimePickerDialog(EditAppointmentActivity.this, R.style.Theme_AppCompat_Light_Dialog, onTimeSetListener, appointment.getHour(), appointment.getMinute(), true);
+        TimePickerDialog timePickerDialog = new TimePickerDialog(EditAppointmentActivity.this, R.style.Theme_AppCompat_Light_Dialog, onTimeSetListener, oldHour, oldMinute, true);
 
         timePickerDialog.setTitle(R.string.set_Time);
 

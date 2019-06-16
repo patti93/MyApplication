@@ -16,6 +16,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class CreateAppointmentActivity extends AppCompatActivity {
@@ -32,6 +34,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
     WG4U_DataSource dataSource;
 
     ActiveResident activeResident;
+    ActiveWG activeWG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,51 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             Toast.makeText(this,R.string.name_required,Toast.LENGTH_SHORT).show();
         }
         else {
+
+
+            activeResident = new ActiveResident(this);
+
+            activeWG = new ActiveWG(this);
+
+            String wgID = Long.toString(activeWG.getActiveWG().getId());
+            String hour = Long.toString(hourIn);
+            String minute = Long.toString(minutesIn);
+
+            Map<String,String> params = new HashMap<>();
+
+            params.put("wg_id",wgID);
+            params.put("name",name);
+            params.put("description",description);
+            params.put("date",date);
+            params.put("hour",hour);
+            params.put("minute",minute);
+
+
+            String url = "https://wg4u.dnsuser.de/insert_and_assoc_appointment.php";
+
+            VolleyHelper volleyHelper = new VolleyHelper();
+
+            VolleyHelper.makeStringRequestPOST(getApplicationContext(), url, params, new VolleyResponseListener() {
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    Log.d("INFO",response);
+                    if(response.equals("success")) finish();
+                        else Toast.makeText(getApplicationContext(),R.string.check_input,Toast.LENGTH_LONG).show();
+                }
+            });
+
+
+
+
+
+
+
+            /*
             activeResident = new ActiveResident(this);
             dataSource = new WG4U_DataSource(this);
             dataSource.open();
@@ -81,7 +129,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             dataSource.associateAppointmentToWG(wg,appointment);
             dataSource.close();
 
-            finish();
+            finish();*/
         }
 
     }
@@ -125,7 +173,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
                 hourIn = hour;
                 minutesIn = minute;
-                Log.d("INFO",Integer.toString(hourIn)+ ":" + Integer.toString(minutesIn));
+                Log.d("INFO", hourIn + ":" + minutesIn);
             }
         };
         /*

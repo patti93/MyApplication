@@ -3,8 +3,15 @@ package com.example.patrick.myapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -22,48 +29,86 @@ public class show_appointment extends AppCompatActivity {
 
         id = intent.getLongExtra("id",0);
 
-        String time,hour,minute;
 
-        dataSource = new WG4U_DataSource(this);
 
-        dataSource.open();
+        //dataSource = new WG4U_DataSource(this);
 
-        appointment = dataSource.getAppointmentsSearch("id =" + id).get(0);
+        //dataSource.open();
 
-        dataSource.close();
+        String url = "https://wg4u.dnsuser.de/get_appointment.php?appID=" + id;
 
-        minute = Integer.toString(appointment.getMinute());
-        hour = Integer.toString(appointment.getHour());
+        VolleyHelper volleyHelper = new VolleyHelper();
 
-        if(hour.length() == 1)hour = "0" + hour;
-        if(minute.length() == 1)minute = "0" + minute;
-        time = hour + ":" + minute;
+        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
 
-        TextView appointmentName = findViewById(R.id.appointmentNameTextView);
-        appointmentName.setText(appointment.getName());
+            @Override
+            public void onResponse(String response) {
 
-        TextView appointmentDate = findViewById(R.id.appointmentDateTextView);
-        appointmentDate.setText(appointment.getDate());
 
-        TextView appointmentNote = findViewById(R.id.appointmentNoteTextView);
-        appointmentNote.setText(appointment.getDescription());
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    Gson gson = new Gson();
+                    String time,hour,minute;
 
-        TextView appointmentTime = findViewById(R.id.appointmentTimeTextView);
-        appointmentTime.setText(time);
+                    appointment = gson.fromJson(jsonArray.getString(0),Appointment.class);
+
+                    minute = Integer.toString(appointment.getMinute());
+                    hour = Integer.toString(appointment.getHour());
+
+                    if(hour.length() == 1)hour = "0" + hour;
+                    if(minute.length() == 1)minute = "0" + minute;
+                    time = hour + ":" + minute;
+
+                    TextView appointmentName = findViewById(R.id.appointmentNameTextView);
+                    appointmentName.setText(appointment.getName());
+
+                    TextView appointmentDate = findViewById(R.id.appointmentDateTextView);
+                    appointmentDate.setText(appointment.getDate());
+
+                    TextView appointmentNote = findViewById(R.id.appointmentNoteTextView);
+                    appointmentNote.setText(appointment.getDescription());
+
+                    TextView appointmentTime = findViewById(R.id.appointmentTimeTextView);
+                    appointmentTime.setText(time);
+
+                } catch (JSONException e){
+
+                }
+
+
+            }
+        });
+        //appointment = dataSource.getAppointmentsSearch("id =" + id).get(0);
+
+        //dataSource.close();
 
     }
 
     public void onClickDelete(View view){
 
-        dataSource.open();
+        String url = "https://wg4u.dnsuser.de/delete_appointment.php?appID=" + appointment.getId();
 
-        long check = dataSource.deleteAppointment(appointment.getId());
 
-        dataSource.deleteHasAppointment(appointment.getId());
+        VolleyHelper volleyHelper = new VolleyHelper();
 
-        dataSource.close();
+        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+            @Override
+            public void onError(String message) {
+            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
 
-        finish();
+            @Override
+            public void onResponse(String response) {
+
+                    if(response.equals("success")) finish();
+                        else Toast.makeText(getApplicationContext(),R.string.error_delete,Toast.LENGTH_LONG).show();
+
+            }
+        });
 
     }
 
@@ -72,6 +117,11 @@ public class show_appointment extends AppCompatActivity {
         Intent intent = new Intent(this,EditAppointmentActivity.class);
 
         intent.putExtra("id",appointment.getId());
+        intent.putExtra("name",appointment.getName());
+        intent.putExtra("date",appointment.getDate());
+        intent.putExtra("description",appointment.getDescription());
+        intent.putExtra("hour",appointment.getHour());
+        intent.putExtra("minute",appointment.getMinute());
 
         startActivity(intent);
 
