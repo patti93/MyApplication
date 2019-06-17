@@ -64,6 +64,12 @@ public class ActiveResident {
 
 
     }
+    public void unsetActiveResident() {
+
+    editor.clear();
+    editor.commit();
+
+    }
 
 
 

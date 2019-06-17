@@ -82,7 +82,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        activeWG.unsetActiveWG();
+        activeResident.unsetActiveResident();
 
+    }
 
 
 

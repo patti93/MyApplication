@@ -39,6 +39,7 @@ public class FoundWG2Activity extends AppCompatActivity {
         //put POST params
 if(checkInput()) {
 
+    ActiveResident activeResident = new ActiveResident(getApplicationContext());
 
     Map<String, String> params = new HashMap<>();
     //address
@@ -50,8 +51,11 @@ if(checkInput()) {
     params.put("country", address[4]);
     params.put("description", wgData[2]);
     params.put("password", wgData[1]);
+    params.put("userid",Long.toString(activeResident.getActiveResident().getId()));
 
     String url = "https://wg4u.dnsuser.de/insert_wg.php";
+
+
 
     VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -68,7 +72,7 @@ if(checkInput()) {
                 JSONObject jsonObject = new JSONObject(response);
                 if (jsonObject.getInt("success") == 1) {
 
-                    Intent intent = new Intent(getApplicationContext(),MainMenuActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     //kills all previous activities
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);

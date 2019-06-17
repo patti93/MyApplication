@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         Resident resident = gson.fromJson(jsonArray.getString(1),Resident.class);
                         activeResident.setActiveResident(resident);
                         activeResident.setLoggedIn();
+                        activeWG.unsetActiveWG();
                         Intent intent = new Intent(getApplicationContext(), NoWGActivity.class);
                         startActivity(intent);
 
