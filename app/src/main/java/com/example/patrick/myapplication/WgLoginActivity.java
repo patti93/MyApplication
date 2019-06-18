@@ -42,7 +42,7 @@ public class WgLoginActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        final ActiveResident activeResident = new ActiveResident(getApplicationContext());
+        ActiveResident activeResident = new ActiveResident(getApplicationContext());
         Resident resident = activeResident.getActiveResident();
         int id = (int)resident.getId();
 
