@@ -35,6 +35,7 @@ public class MainMenuActivity extends AppCompatActivity {
         }
         */
         activeWG = new ActiveWG(getApplicationContext());
+        activeResident = new ActiveResident(getApplicationContext());
         wgName = activeWG.getActiveWG().getName();
         TextView wgTextView = findViewById(R.id.wg_name);
         wgTextView.setText(wgName);

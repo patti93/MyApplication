@@ -36,6 +36,7 @@ public class ShowCalenderActivity extends AppCompatActivity {
     String task_on;
     TextView textView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +100,6 @@ public class ShowCalenderActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        final List<Appointment> appointmentList = new ArrayList<>();
 
         VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
             @Override
@@ -112,7 +112,7 @@ public class ShowCalenderActivity extends AppCompatActivity {
                 Log.d(LOGTAG,response);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
-
+                    List<Appointment> appointmentList = new ArrayList<>();
                     if(jsonArray.getJSONObject(0).getInt("status") == 1){
                         Gson gson = new Gson();
 

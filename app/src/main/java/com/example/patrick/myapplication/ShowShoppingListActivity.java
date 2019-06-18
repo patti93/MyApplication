@@ -8,18 +8,28 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ShowShoppingListActivity extends AppCompatActivity {
 
-    private static final String LOG_TAG = WG4U_DataSource.class.getSimpleName();
+    private static final String LOG_TAG = ShowShoppingListActivity.class.getSimpleName();
 
     private ArrayList<String> shoppingItems;
-    private ArrayAdapter<String> shoppingItemsAdapter;
+    private ShoppingItemAdapter shoppingItemsAdapter;
     private ListView listView;
     private WG4U_DataSource dataSource;
     private ActiveResident activeResident;
+    private ActiveWG activeWG;
     private Wg wg;
 
     @Override
@@ -27,6 +37,14 @@ public class ShowShoppingListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_shopping_list);
 
+        activeResident = new ActiveResident(getApplicationContext());
+        activeWG = new ActiveWG(getApplicationContext());
+
+        updateShoppingList();
+
+        setupListViewListener();
+
+        /*
         // Open DB
         dataSource = new WG4U_DataSource(this);
         dataSource.open();
@@ -47,15 +65,93 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
         // Close DB
         dataSource.close();
+        */
 
-        setupListViewListener();
     }
+
+
+
+    public void updateShoppingList(){
+
+        String wg_id = Long.toString(activeWG.getActiveWG().getId());
+
+        String url = "https://wg4u.dnsuser.de/get_wgs_shoppinglist.php?wg_id=" + wg_id;
+
+        VolleyHelper volleyHelper = new VolleyHelper();
+
+        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+
+            @Override
+            public void onError(String message) {
+                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONArray jsonArray = new JSONArray(response);
+                    Gson gson = new Gson();
+
+                    ArrayList<ShoppingItem> shoppingitems = new ArrayList<>();
+
+                    for(int i = 0; i < jsonArray.length(); i++){
+
+                        shoppingitems.add(gson.fromJson(jsonArray.getString(i),ShoppingItem.class));
+
+                    }
+                    shoppingItemsAdapter = new ShoppingItemAdapter(ShowShoppingListActivity.this, shoppingitems);
+
+                    listView = findViewById(R.id.view_shopping_list);
+                    listView.setAdapter(shoppingItemsAdapter);
+
+
+                } catch (JSONException e){
+
+                    Log.d(LOG_TAG,e.getMessage());
+                }
+
+            }
+        });
+    }
+
 
     // Called when a new product added
     public void onClick(View v) {
         EditText input_item = findViewById(R.id.input_item);
         String itemText = input_item.getText().toString();
 
+
+        if(!itemText.isEmpty()){
+
+            String url = "https://wg4u.dnsuser.de/insert_shopping_item.php?item_name=" + itemText + "&wg_id=" + activeWG.getActiveWG().getId();
+
+            VolleyHelper volleyHelper = new VolleyHelper();
+
+            VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+                @Override
+                public void onError(String message) {
+                    Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onResponse(String response) {
+
+                    if(response.equals("success")){
+
+                        updateShoppingList();
+                        EditText input_item = findViewById(R.id.input_item);
+                        input_item.setText("");
+
+                    }
+                    else {
+                    }
+
+                }
+            });
+        }
+
+        /*
         if(!itemText.isEmpty()) {
             // Open DB
             dataSource = new WG4U_DataSource(this);
@@ -82,7 +178,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
             input_item.setText("");
 
         }
-
+        */
     }
 
 
@@ -90,12 +186,33 @@ public class ShowShoppingListActivity extends AppCompatActivity {
     // Delete that item
     // TBD
     private void setupListViewListener() {
+        listView = findViewById(R.id.view_shopping_list);
         listView.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapter,
                                                    View item, int pos, long id) {
+                        ShoppingItem shoppingItem = (ShoppingItem) adapter.getItemAtPosition(pos);
 
+                        String url = "https://wg4u.dnsuser.de/delete_shopping_item.php?item_id=" + shoppingItem.getId();
+
+                        VolleyHelper volleyHelper = new VolleyHelper();
+
+                        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message) {
+                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if(response.equals("success")){
+                                    updateShoppingList();
+                                }
+
+                            }
+                        });
+                    /*
                         // Open DB
                         dataSource.open();
 
@@ -114,6 +231,8 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                         shoppingItemsAdapter.notifyDataSetChanged();
 
                         // Return true consumes the long click event (marks it handled)
+
+                      */
                         return true;
                     }
 
