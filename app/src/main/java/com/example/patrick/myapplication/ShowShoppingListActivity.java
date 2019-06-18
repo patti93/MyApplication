@@ -89,6 +89,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
+                Log.d(LOG_TAG,response);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     Gson gson = new Gson();
@@ -109,6 +110,13 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                 } catch (JSONException e){
 
                     Log.d(LOG_TAG,e.getMessage());
+                    ArrayList<ShoppingItem> shoppingitems = new ArrayList<>();
+                    shoppingItemsAdapter = new ShoppingItemAdapter(ShowShoppingListActivity.this, shoppingitems);
+
+                    listView = findViewById(R.id.view_shopping_list);
+                    listView.setAdapter(shoppingItemsAdapter);
+
+
                 }
 
             }
@@ -136,7 +144,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
                 @Override
                 public void onResponse(String response) {
-
+                    Log.d(LOG_TAG,response);
                     if(response.equals("success")){
 
                         updateShoppingList();
@@ -206,6 +214,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
                             @Override
                             public void onResponse(String response) {
+
                                 if(response.equals("success")){
                                     updateShoppingList();
                                 }
