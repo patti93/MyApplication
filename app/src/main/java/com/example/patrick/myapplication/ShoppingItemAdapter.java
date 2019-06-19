@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ShoppingItemAdapter extends ArrayAdapter {
     public ShoppingItemAdapter(Context context, ArrayList<ShoppingItem> shoppingItems) {
-        super(context, 0, shoppingItems);
+        super(context,0 , shoppingItems);
     }
 
 

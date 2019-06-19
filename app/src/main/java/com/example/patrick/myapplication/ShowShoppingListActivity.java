@@ -147,9 +147,9 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                     Log.d(LOG_TAG,response);
                     if(response.equals("success")){
 
-                        updateShoppingList();
                         EditText input_item = findViewById(R.id.input_item);
                         input_item.setText("");
+                        updateShoppingList();
 
                     }
                     else {

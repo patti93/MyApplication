@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
 public class MainMenuActivity extends AppCompatActivity {
 
     String wgName;
@@ -65,7 +63,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
     public void onClickToDo(View view){
 
-        Intent intent = new Intent(this,ShowToDoActivity.class);
+        Intent intent = new Intent(this, ShowToDoActivity.class);
         startActivity(intent);
 
     }
@@ -87,14 +85,5 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onDestroy();
         activeWG.unsetActiveWG();
     }
-
-
-
-
-
-
-
-
-
 
 }

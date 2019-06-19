@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ToDoItemAdapter extends ArrayAdapter {
 
     public ToDoItemAdapter(Context context, ArrayList<ToDoItem> todoItems) {
-        super(context, 0, todoItems);
+        super(context, R.layout.todo_item, todoItems);
     }
 
 

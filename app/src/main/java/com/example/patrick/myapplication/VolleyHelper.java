@@ -67,8 +67,7 @@ public class VolleyHelper {
                     public void onErrorResponse(VolleyError error) {
                         listener.onError(error.toString());
                     }
-                }) {
-        };
+                });
 
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
 

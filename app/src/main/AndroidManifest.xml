@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.patrick.myapplication">
+    <!-- Internet Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditWGActivity"></activity>
+        <activity android:name=".ShowToDoActivity"></activity>
+        <activity android:name=".EditWGActivity" />
         <activity android:name=".EditAppointmentActivity" />
         <activity android:name=".show_appointment" />
         <activity android:name=".ShowShoppingListActivity" />
@@ -35,8 +38,5 @@
         <activity android:name=".FoundWGActivity" />
         <activity android:name=".SearchWGActivity" />
     </application>
-
-    <!--  Internet Permissions -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
