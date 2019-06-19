@@ -75,4 +75,6 @@
     <string name="leaveWG">WG verlassen</string>
     <string name="check_input">Fehler, überprüfe dein Eingaben</string>
     <string name="error_delete">Fehler beim Löschen des Eintrags</string>
+    <string name="Journal">Pinnwand</string>
+    <string name="say_something">was liegt an?</string>
 </resources>

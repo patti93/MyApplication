@@ -4,20 +4,21 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:orientation="horizontal"
-    android:layout_height="match_parent"
-    android:weightSum="6">
+    android:layout_height="wrap_content"
+    android:weightSum="10">
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="4"
+        android:layout_weight="8"
         android:orientation="vertical"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
+            android:textSize="16dp"
             android:layout_marginLeft="4dp"
+            android:textStyle="bold"
             android:id="@+id/journalListViewItemSentBy"/>
 
         <TextView
@@ -25,29 +26,32 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:id="@+id/journalListViewItemMessage"
-            android:textSize="12dp"/>
-
-
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/journalListViewItemDate"
-                android:layout_marginRight="4dp"
-                android:layout_alignParentEnd="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/journalListViewItemTime"
-                android:layout_marginRight="4dp"
-                android:layout_alignParentStart="true"/>
-
-        </RelativeLayout>
+            android:textSize="20dp"/>
 
      </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+
+        <TextView
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/journalListViewItemDate"
+            android:layout_marginRight="4dp"
+            android:layout_alignParentEnd="true"/>
+        <TextView
+            android:textSize="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/journalListViewItemTime"
+            android:layout_marginRight="4dp"
+            android:layout_alignParentStart="true"/>
+
+    </RelativeLayout>
+
 
     </LinearLayout>

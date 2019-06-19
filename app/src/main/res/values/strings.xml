@@ -164,5 +164,7 @@
     <string name="leaveWG">Leave WG</string>
     <string name="check_input">Error, check the input</string>
     <string name="error_delete">Error while deleting entry</string>
+    <string name="Journal">Journal</string>
+    <string name="say_something">say something!</string>
 
 </resources>
