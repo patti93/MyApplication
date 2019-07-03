@@ -35,7 +35,7 @@ public class show_appointment extends AppCompatActivity {
 
         //dataSource.open();
 
-        String url = "https://wg4u.dnsuser.de/get_appointment.php?appID=" + id;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_appointment.php?appID=" + id;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -90,7 +90,7 @@ public class show_appointment extends AppCompatActivity {
 
     public void onClickDelete(View view){
 
-        String url = "https://wg4u.dnsuser.de/delete_appointment.php?appID=" + appointment.getId();
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/delete_appointment.php?appID=" + appointment.getId();
 
 
         VolleyHelper volleyHelper = new VolleyHelper();

@@ -90,7 +90,7 @@ public class WG4U_DataSource {
         */
 
         final RequestQueue queue = Volley.newRequestQueue(appcontext);
-        String url_create_usr = "https://wg4u.dnsuser.de/create_user.php";
+        String url_create_usr = "https://sfwgfiuvrt1rmt6g.myfritz.net/create_user.php";
 
         StringRequest strRequest = new StringRequest(Request.Method.POST, url_create_usr,
                 new Response.Listener<String>()
@@ -200,7 +200,7 @@ public class WG4U_DataSource {
     public List<Resident> getResidentsSearch(String searchString){
 
         final List<Resident> residentList = new ArrayList<>();
-        String url = "https://wg4u.dnsuser.de/get_user.php";
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_user.php";
         Map<String,String> params = new HashMap<>();
 
         params.put("searchString",searchString);

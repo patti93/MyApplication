@@ -73,7 +73,7 @@ public class ShowWGActivity extends AppCompatActivity {
   */
         String userid = Long.toString(activeResident.getActiveResident().getId());
 
-        String url = "https://wg4u.dnsuser.de/leave_wg.php?userid=" + userid;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/leave_wg.php?userid=" + userid;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 

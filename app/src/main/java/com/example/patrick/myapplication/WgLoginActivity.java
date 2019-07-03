@@ -48,7 +48,7 @@ public class WgLoginActivity extends AppCompatActivity {
 
         String idString = Integer.toString(id);
 
-        String url = "https://wg4u.dnsuser.de/wglogin.php?wgname=" + wgName + "&password=" + password + "&userid=" + idString;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/wglogin.php?wgname=" + wgName + "&password=" + password + "&userid=" + idString;
 
 
         VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {

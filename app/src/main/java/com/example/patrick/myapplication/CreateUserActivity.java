@@ -125,7 +125,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
             VolleyHelper volleyHelper = new VolleyHelper();
 
-            VolleyHelper.makeStringRequestPOST(getApplicationContext(), "https://wg4u.dnsuser.de/create_user.php", values, new VolleyResponseListener() {
+            VolleyHelper.makeStringRequestPOST(getApplicationContext(), "https://sfwgfiuvrt1rmt6g.myfritz.net/create_user.php", values, new VolleyResponseListener() {
                 @Override
                 public void onError(String message) {
                     Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();

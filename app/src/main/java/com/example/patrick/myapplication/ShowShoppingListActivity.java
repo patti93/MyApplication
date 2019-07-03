@@ -1,5 +1,6 @@
 package com.example.patrick.myapplication;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -44,6 +46,8 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
         setupListViewListener();
 
+        setUpOnClickListener();
+
         /*
         // Open DB
         dataSource = new WG4U_DataSource(this);
@@ -75,7 +79,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
         String wg_id = Long.toString(activeWG.getActiveWG().getId());
 
-        String url = "https://wg4u.dnsuser.de/get_wgs_shoppinglist.php?wg_id=" + wg_id;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_wgs_shoppinglist.php?wg_id=" + wg_id;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -132,7 +136,7 @@ public class ShowShoppingListActivity extends AppCompatActivity {
 
         if(!itemText.isEmpty()){
 
-            String url = "https://wg4u.dnsuser.de/insert_shopping_item.php?item_name=" + itemText + "&wg_id=" + activeWG.getActiveWG().getId();
+            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/insert_shopping_item.php?item_name=" + itemText + "&wg_id=" + activeWG.getActiveWG().getId();
 
             VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -202,25 +206,31 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                                                    View item, int pos, long id) {
                         ShoppingItem shoppingItem = (ShoppingItem) adapter.getItemAtPosition(pos);
 
-                        String url = "https://wg4u.dnsuser.de/delete_shopping_item.php?item_id=" + shoppingItem.getId();
 
-                        VolleyHelper volleyHelper = new VolleyHelper();
+                        TextView shoppingItemTextView = item.findViewById(R.id.shopping_list_item_name);
 
-                        VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
-                            @Override
-                            public void onError(String message) {
-                                Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                            }
+                        if(shoppingItemTextView.getPaint().isStrikeThruText()) {
 
-                            @Override
-                            public void onResponse(String response) {
+                            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/delete_shopping_item.php?item_id=" + shoppingItem.getId();
 
-                                if(response.equals("success")){
-                                    updateShoppingList();
+                            VolleyHelper volleyHelper = new VolleyHelper();
+
+                            VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+                                @Override
+                                public void onError(String message) {
+                                    Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
                                 }
 
-                            }
-                        });
+                                @Override
+                                public void onResponse(String response) {
+
+                                    if (response.equals("success")) {
+                                        updateShoppingList();
+                                    }
+
+                                }
+                            });
+                        }
                     /*
                         // Open DB
                         dataSource.open();
@@ -246,6 +256,21 @@ public class ShowShoppingListActivity extends AppCompatActivity {
                     }
 
                 });
+    }
+
+    public void setUpOnClickListener(){
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView shoppingItemTextView = view.findViewById(R.id.shopping_list_item_name);
+
+                shoppingItemTextView.setPaintFlags(shoppingItemTextView.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+
+            }
+        });
+
     }
 
 }

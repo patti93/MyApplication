@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
-        VolleyHelper.makeStringRequestPOST(this, "https://wg4u.dnsuser.de/login.php", params, new VolleyResponseListener() {
+        VolleyHelper.makeStringRequestPOST(this, "https://sfwgfiuvrt1rmt6g.myfritz.net/login.php", params, new VolleyResponseListener() {
             @Override
             public void onError(String message) {
                 Log.d(LOG_TAG,message);

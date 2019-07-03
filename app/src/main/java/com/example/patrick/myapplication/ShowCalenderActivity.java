@@ -96,7 +96,7 @@ public class ShowCalenderActivity extends AppCompatActivity {
 
         ActiveWG activeWG = new ActiveWG(getApplicationContext());
 
-        String url = "https://wg4u.dnsuser.de/get_wg_appointments.php?wg_id=" + activeWG.getActiveWG().getId() + "&date=" + date;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_wg_appointments.php?wg_id=" + activeWG.getActiveWG().getId() + "&date=" + date;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 

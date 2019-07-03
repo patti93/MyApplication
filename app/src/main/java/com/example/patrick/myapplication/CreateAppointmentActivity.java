@@ -94,7 +94,7 @@ public class CreateAppointmentActivity extends AppCompatActivity {
             params.put("minute",minute);
 
 
-            String url = "https://wg4u.dnsuser.de/insert_and_assoc_appointment.php";
+            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/insert_and_assoc_appointment.php";
 
             VolleyHelper volleyHelper = new VolleyHelper();
 

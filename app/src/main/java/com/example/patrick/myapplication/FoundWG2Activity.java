@@ -53,7 +53,7 @@ if(checkInput()) {
     params.put("password", wgData[1]);
     params.put("userid",Long.toString(activeResident.getActiveResident().getId()));
 
-    String url = "https://wg4u.dnsuser.de/insert_wg.php";
+    String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/insert_wg.php";
 
 
 

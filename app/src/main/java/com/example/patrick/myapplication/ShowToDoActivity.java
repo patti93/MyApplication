@@ -1,11 +1,13 @@
 package com.example.patrick.myapplication;
 
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,6 +39,8 @@ public class ShowToDoActivity extends AppCompatActivity {
         updateListView();
 
         setupListviewListener();
+
+        setUpOnClickListener();
     }
 
 
@@ -50,7 +54,7 @@ public class ShowToDoActivity extends AppCompatActivity {
 
         String wg_id = Long.toString(activeWG.getActiveWG().getId());
 
-        String url = "https://wg4u.dnsuser.de/insert_todo_item.php?item_name=" + todoName + "&wg_id=" + wg_id;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/insert_todo_item.php?item_name=" + todoName + "&wg_id=" + wg_id;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -74,7 +78,7 @@ public class ShowToDoActivity extends AppCompatActivity {
 
         String wg_id = Long.toString(activeWG.getActiveWG().getId());
 
-        String url = "https://wg4u.dnsuser.de/get_wgs_todolist.php?wg_id=" + wg_id;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_wgs_todolist.php?wg_id=" + wg_id;
 
         VolleyHelper volleyHelper = new VolleyHelper();
 
@@ -119,26 +123,33 @@ public class ShowToDoActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                ToDoItem toDoItem = (ToDoItem) parent.getItemAtPosition(position);
 
-                VolleyHelper volleyHelper = new VolleyHelper();
-
-                String url = "https://wg4u.dnsuser.de/delete_todo_item.php?item_id=" + toDoItem.getId();
-
-                VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
-                    @Override
-                    public void onError(String message) {
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
-                    }
-
-                    @Override
-                    public void onResponse(String response) {
-
-                        updateListView();
+                TextView todoTextview = view.findViewById(R.id.todo_list_item_name);
 
 
-                    }
-                });
+                if(todoTextview.getPaint().isStrikeThruText()){
+
+                    ToDoItem toDoItem = (ToDoItem) parent.getItemAtPosition(position);
+
+                    VolleyHelper volleyHelper = new VolleyHelper();
+
+                    String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/delete_todo_item.php?item_id=" + toDoItem.getId();
+
+
+                    VolleyHelper.makeStringRequestGET(getApplicationContext(), url, new VolleyResponseListener() {
+                        @Override
+                        public void onError(String message) {
+                            Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onResponse(String response) {
+
+                            updateListView();
+
+                        }
+                    });
+                }
 
                 return true;
             }
@@ -146,4 +157,18 @@ public class ShowToDoActivity extends AppCompatActivity {
 
     }
 
+    public void setUpOnClickListener(){
+
+        toDoListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView todoTextview = view.findViewById(R.id.todo_list_item_name);
+
+                todoTextview.setPaintFlags(todoTextview.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+
+            }
+        });
+
+    }
 }

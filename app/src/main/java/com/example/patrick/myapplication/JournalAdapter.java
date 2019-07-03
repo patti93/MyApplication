@@ -1,6 +1,7 @@
 package com.example.patrick.myapplication;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,12 @@ public class JournalAdapter extends ArrayAdapter {
         date.setText(entry.getDate());
         time.setText(t);
         Log.d("INFO",t);
+
+
+        if(position % 2 == 0){
+            int convertViewBackgroundColor = Color.argb(120,213,213,213);
+            convertView.setBackgroundColor(convertViewBackgroundColor);
+        }
 
         return convertView;
     }

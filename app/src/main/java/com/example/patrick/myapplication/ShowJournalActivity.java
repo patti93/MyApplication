@@ -53,7 +53,7 @@ public class ShowJournalActivity extends AppCompatActivity {
         
         String wg_id = Long.toString(activeWG.getActiveWG().getId());
         
-        String url = "https://wg4u.dnsuser.de/get_wgs_journal.php?wg_id=" + wg_id;
+        String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/get_wgs_journal.php?wg_id=" + wg_id;
         
         VolleyHelper volleyHelper = new VolleyHelper();
         
@@ -128,7 +128,7 @@ public class ShowJournalActivity extends AppCompatActivity {
             params.put("hour", timeArray[0]);
             params.put("minute", timeArray[1]);
 
-            String url = "https://wg4u.dnsuser.de/insert_journal_entry.php";
+            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/insert_journal_entry.php";
 
             VolleyHelper volleyHelper = new VolleyHelper();
 

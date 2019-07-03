@@ -122,7 +122,7 @@ public class EditAppointmentActivity extends AppCompatActivity {
             params.put("hour",Integer.toString(hourIn));
             params.put("minute",Integer.toString(minutesIn));
 
-            String url = "https://wg4u.dnsuser.de/update_appointment.php";
+            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/update_appointment.php";
 
             VolleyHelper volleyHelper = new VolleyHelper();
 

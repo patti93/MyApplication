@@ -113,7 +113,7 @@ public class EditWGActivity extends AppCompatActivity {
 
             VolleyHelper volleyHelper = new VolleyHelper();
 
-            String url = "https://wg4u.dnsuser.de/update_wg.php";
+            String url = "https://sfwgfiuvrt1rmt6g.myfritz.net/update_wg.php";
 
             Map<String,String> params = new HashMap<>();
 
